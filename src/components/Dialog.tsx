@@ -138,6 +138,24 @@ export const Dialog = ({
     };
   }, [open, close]);
 
+  useEffect(() => {
+    if (!open || !canUseDOM) return;
+    const handleDocumentKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      if (event.defaultPrevented) return;
+      const overlay = overlayRef.current;
+      if (overlay && event.target instanceof Node && !overlay.contains(event.target)) {
+        return;
+      }
+      event.preventDefault();
+      close();
+    };
+    document.addEventListener("keydown", handleDocumentKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleDocumentKeyDown);
+    };
+  }, [close, open]);
+
   const handleOverlayMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
       if (!closeOnOverlayClick) return;
