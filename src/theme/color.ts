@@ -76,20 +76,20 @@ const ensureContrast = (foreground: string, background: string, target = 4.5): s
 };
 
 const accentPalette: Record<Accent, string> = {
-  indigo: "#6366f1",
-  azure: "#2563eb",
-  violet: "#7c3aed",
-  emerald: "#059669",
+  indigo: "#4338ca",
+  azure: "#1d4ed8",
+  violet: "#6d28d9",
+  emerald: "#047857",
   amber: "#f59e0b",
-  rose: "#f43f5e",
-  neutral: "#6b7280",
+  rose: "#e11d48",
+  neutral: "#18181b",
 };
 
 const semanticDefaults = {
-  success: "#10b981",
-  warning: "#f59e0b",
-  danger: "#ef4444",
-  neutral: "#6b7280",
+  success: "#16a34a",
+  warning: "#f97316",
+  danger: "#dc2626",
+  neutral: "#71717a",
 };
 
 const colorVisionSemantics: Record<ColorVisionMode, Partial<typeof semanticDefaults> & { primary?: string }> = {
@@ -121,26 +121,26 @@ const colorVisionSemantics: Record<ColorVisionMode, Partial<typeof semanticDefau
 };
 
 const baseLight = {
-  background: "#f5f6f8",
+  background: "#f4f4f5",
   surface: "#ffffff",
-  surfaceHover: "#f2f3f6",
-  surfaceActive: "#e6e9ef",
-  border: "#d8dee6",
+  surfaceHover: "#f7f7f8",
+  surfaceActive: "#eeeeef",
+  border: "#e4e4e7",
 };
 
 const baseDark = {
-  background: "#050509",
-  surface: "#0f1119",
-  surfaceHover: "#181b26",
-  surfaceActive: "#1f2431",
-  border: "#2b3142",
+  background: "#09090b",
+  surface: "#111114",
+  surfaceHover: "#18181c",
+  surfaceActive: "#1f1f24",
+  border: "#27272a",
 };
 
 const lighten = (color: string, amount: number) => mix(color, "#ffffff", amount);
 const darken = (color: string, amount: number) => mix(color, "#000000", amount);
 
 const neutralFromAppearance = (appearance: Appearance) =>
-  appearance === "light" ? "#4b5563" : "#a1a1aa";
+  appearance === "light" ? "#18181b" : "#d4d4d8";
 
 const highContrastBackground = (appearance: Appearance) =>
   appearance === "light" ? "#ffffff" : "#000000";
@@ -204,19 +204,23 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
     highContrast ? 6 : 4.5,
   );
 
-  const textBase = highContrast ? highContrastText(appearance) : appearance === "light" ? "#111322" : "#f4f4f5";
-  const textMuted = appearance === "light" ? "#4b5563" : "#c7cad9";
-  const textSubtle = appearance === "light" ? "#6b7280" : "#a1a5b5";
-  const inverted = appearance === "light" ? "#0f1119" : "#f5f6f8";
+  const textBase = highContrast
+    ? highContrastText(appearance)
+    : appearance === "light"
+      ? "#111114"
+      : "#f5f5f6";
+  const textMuted = appearance === "light" ? "#3f3f46" : "#a1a1aa";
+  const textSubtle = appearance === "light" ? "#71717a" : "#8f90a6";
+  const inverted = appearance === "light" ? "#ffffff" : "#09090b";
 
-  const neutralSoftBase = appearance === "light" ? lighten(neutral, 0.6) : darken(neutral, 0.45);
+  const neutralSoftBase = appearance === "light" ? lighten(neutral, 0.9) : darken(neutral, 0.55);
 
-  const successSoft = appearance === "light" ? lighten(success, 0.82) : darken(success, 0.6);
-  const successBorder = appearance === "light" ? lighten(success, 0.46) : darken(success, 0.32);
-  const warningSoft = appearance === "light" ? lighten(warning, 0.82) : darken(warning, 0.6);
-  const warningBorder = appearance === "light" ? lighten(warning, 0.46) : darken(warning, 0.32);
-  const dangerSoft = appearance === "light" ? lighten(danger, 0.82) : darken(danger, 0.6);
-  const dangerBorder = appearance === "light" ? lighten(danger, 0.46) : darken(danger, 0.32);
+  const successSoft = appearance === "light" ? lighten(success, 0.9) : darken(success, 0.55);
+  const successBorder = appearance === "light" ? lighten(success, 0.65) : darken(success, 0.35);
+  const warningSoft = appearance === "light" ? lighten(warning, 0.9) : darken(warning, 0.55);
+  const warningBorder = appearance === "light" ? lighten(warning, 0.65) : darken(warning, 0.35);
+  const dangerSoft = appearance === "light" ? lighten(danger, 0.9) : darken(danger, 0.55);
+  const dangerBorder = appearance === "light" ? lighten(danger, 0.65) : darken(danger, 0.35);
 
   const tokens: ThemeTokens = {
     "color-background": surface.background,
@@ -224,7 +228,11 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
     "color-surface-hover": surface.surfaceHover,
     "color-surface-active": surface.surfaceActive,
     "color-border": surface.border,
-    "color-ring": ensureContrast(appearance === "light" ? lighten(primary, 0.2) : darken(primary, 0.2), surface.background, 6),
+    "color-ring": ensureContrast(
+      appearance === "light" ? lighten(primary, 0.4) : darken(primary, 0.35),
+      surface.background,
+      highContrast ? 7 : 5,
+    ),
     "color-text": textBase,
     "color-text-subtle": textSubtle,
     "color-text-muted": textMuted,
@@ -235,8 +243,8 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
       primary,
       highContrast ? 7 : 4.5,
     ),
-    "color-primary-soft": appearance === "light" ? lighten(primary, 0.78) : darken(primary, 0.62),
-    "color-primary-border": appearance === "light" ? lighten(primary, 0.45) : darken(primary, 0.35),
+    "color-primary-soft": appearance === "light" ? lighten(primary, 0.92) : darken(primary, 0.55),
+    "color-primary-border": appearance === "light" ? lighten(primary, 0.65) : darken(primary, 0.35),
     "color-success": success,
     "color-success-contrast": ensureContrast(appearance === "light" ? "#f8fafc" : "#0f172a", success, highContrast ? 6.5 : 4.5),
     "color-success-soft": successSoft,
@@ -252,8 +260,8 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
     "color-neutral": neutral,
     "color-neutral-contrast": ensureContrast(appearance === "light" ? "#f8fafc" : "#0f172a", neutral, highContrast ? 6 : 4.5),
     "color-neutral-soft": neutralSoftBase,
-    "color-neutral-border": appearance === "light" ? lighten(neutral, 0.6) : darken(neutral, 0.55),
-    "font-family-base": "'Inter var', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    "color-neutral-border": appearance === "light" ? lighten(neutral, 0.72) : darken(neutral, 0.5),
+    "font-family-base": "'Inter var', 'Inter', 'SF Pro Text', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     "font-family-mono": "'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace",
     "text-size-xs": "0.75rem",
     "text-size-sm": "0.875rem",
@@ -268,20 +276,20 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
     "radius-md": "1rem",
     "radius-lg": "1.5rem",
     "shadow-sm": appearance === "light"
-      ? "0 12px 32px -24px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(15, 23, 42, 0.04)"
-      : "0 14px 34px -22px rgba(2, 6, 23, 0.7), 0 0 0 1px rgba(148, 163, 184, 0.08)",
+      ? "0 1px 2px rgba(15, 23, 42, 0.12), 0 1px 0 rgba(15, 23, 42, 0.06)"
+      : "0 1px 2px rgba(2, 6, 23, 0.7), 0 1px 0 rgba(148, 163, 184, 0.12)",
     "shadow-md": appearance === "light"
-      ? "0 32px 74px -46px rgba(15, 23, 42, 0.26), 0 20px 46px -38px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.06)"
-      : "0 36px 82px -44px rgba(2, 6, 23, 0.82), 0 20px 52px -36px rgba(15, 23, 42, 0.6), 0 0 0 1px rgba(148, 163, 184, 0.12)",
+      ? "0 12px 32px -18px rgba(15, 23, 42, 0.22), 0 6px 18px -12px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.06)"
+      : "0 22px 48px -24px rgba(2, 6, 23, 0.74), 0 10px 32px -18px rgba(15, 23, 42, 0.48), 0 0 0 1px rgba(148, 163, 184, 0.14)",
     "shadow-lg": appearance === "light"
-      ? "0 48px 120px -64px rgba(15, 23, 42, 0.28), 0 28px 90px -60px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(15, 23, 42, 0.08)"
-      : "0 52px 120px -62px rgba(2, 6, 23, 0.88), 0 26px 90px -56px rgba(15, 23, 42, 0.64), 0 0 0 1px rgba(148, 163, 184, 0.16)",
+      ? "0 28px 64px -34px rgba(15, 23, 42, 0.24), 0 14px 36px -24px rgba(15, 23, 42, 0.2), 0 0 0 1px rgba(15, 23, 42, 0.05)"
+      : "0 36px 84px -36px rgba(2, 6, 23, 0.78), 0 18px 54px -28px rgba(15, 23, 42, 0.52), 0 0 0 1px rgba(148, 163, 184, 0.16)",
     "border-width": highContrast ? "2px" : "1px",
     "motion-duration": reducedMotion ? "0ms" : "180ms",
     "motion-ease": reducedMotion ? "linear" : "cubic-bezier(0.16, 1, 0.3, 1)",
-    "spacing-xs": "0.3rem",
-    "spacing-sm": "0.65rem",
-    "spacing-md": "1rem",
+    "spacing-xs": "0.375rem",
+    "spacing-sm": "0.75rem",
+    "spacing-md": "1.125rem",
     "spacing-lg": "1.5rem",
   };
 
