@@ -15,6 +15,8 @@ export { ContextMenu } from "./components/ContextMenu";
 export { DataTable } from "./components/DataTable";
 export { DatePicker } from "./components/DatePicker";
 export { Dialog } from "./components/Dialog";
+export { Tabs } from "./components/Tabs";
+export { Accordion } from "./components/Accordion";
 export { Pagination } from "./components/Pagination";
 export { Progress } from "./components/Progress";
 export { RadioGroup, Radio } from "./components/RadioGroup";
