@@ -1,0 +1,70 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--mosaic-font-family-base, "Inter", system-ui, -apple-system, sans-serif);
+  background: var(--mosaic-color-background);
+  color: var(--mosaic-color-text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.app {
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  gap: clamp(2rem, 5vw, 3rem);
+  padding: clamp(1.5rem, 5vw, 3.5rem);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.app-main section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mosaic-spacing-md);
+}
+
+.app-sidebar {
+  position: sticky;
+  top: clamp(1.5rem, 4vw, 3rem);
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--mosaic-spacing-lg);
+}
+
+.app-sidebar > * {
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .app-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 720px) {
+  .app {
+    padding: clamp(1rem, 6vw, 2rem);
+  }
+}
