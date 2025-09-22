@@ -264,21 +264,21 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
     "line-height-tight": "1.2",
     "line-height-normal": "1.5",
     "line-height-relaxed": "1.7",
-    "radius-sm": "0.375rem",
-    "radius-md": "0.5rem",
-    "radius-lg": "0.75rem",
+    "radius-sm": "0.5rem",
+    "radius-md": "0.75rem",
+    "radius-lg": "1.25rem",
     "shadow-sm": appearance === "light"
-      ? "0 1px 2px rgba(15, 23, 42, 0.08)"
-      : "0 1px 2px rgba(15, 23, 42, 0.32)",
+      ? "0 8px 20px -14px rgba(15, 23, 42, 0.24)"
+      : "0 8px 18px -12px rgba(2, 6, 23, 0.6)",
     "shadow-md": appearance === "light"
-      ? "0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.1)"
-      : "0 12px 24px -6px rgba(15, 23, 42, 0.4)",
+      ? "0 18px 40px -24px rgba(15, 23, 42, 0.28)"
+      : "0 24px 54px -28px rgba(2, 6, 23, 0.7)",
     "shadow-lg": appearance === "light"
-      ? "0 20px 25px -5px rgba(15, 23, 42, 0.18), 0 10px 10px -5px rgba(15, 23, 42, 0.1)"
-      : "0 24px 48px -12px rgba(15, 23, 42, 0.5)",
+      ? "0 36px 80px -42px rgba(15, 23, 42, 0.36)"
+      : "0 42px 96px -48px rgba(2, 6, 23, 0.78)",
     "border-width": highContrast ? "2px" : "1px",
     "motion-duration": reducedMotion ? "0ms" : "150ms",
-    "motion-ease": reducedMotion ? "linear" : "cubic-bezier(0.4, 0, 0.2, 1)",
+    "motion-ease": reducedMotion ? "linear" : "cubic-bezier(0.16, 1, 0.3, 1)",
     "spacing-xs": "0.25rem",
     "spacing-sm": "0.5rem",
     "spacing-md": "0.75rem",

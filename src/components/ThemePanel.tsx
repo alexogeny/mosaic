@@ -45,7 +45,7 @@ export const ThemePanel = () => {
   }, [appearance]);
 
   return (
-    <Card tone="neutral" padding="lg" hoverable>
+    <Card tone="neutral" padding="lg" hoverable shadow="lg" className="app-panel theme-panel">
       <Stack gap="md">
         <Stack direction="row" align="center" justify="space-between">
           <Text variant="title">Theme settings</Text>

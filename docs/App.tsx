@@ -107,14 +107,19 @@ const contextMenuItems = [
 ];
 
 const Hero = ({ onOpenPalette }: { onOpenPalette: () => void }) => (
-  <Card tone="primary" hoverable>
+  <Card tone="primary" hoverable padding="lg" shadow="lg" className="app-panel hero-card">
     <Stack gap="md">
       <Stack gap="sm">
-        <Text variant="headline">Mosaic UI kitchen sink</Text>
-        <Text variant="body">
-          Explore accessible primitives, keyboard shortcuts, and adaptive theming. Press <Badge tone="neutral">⌘ K</Badge> or use the
-          buttons below to try the command palette.
-        </Text>
+        <Badge tone="neutral" variant="soft" className="hero-pill">
+          Accessible by default
+        </Badge>
+        <Stack gap="xs">
+          <Text variant="headline">Mosaic UI kitchen sink</Text>
+          <Text variant="body">
+            Explore accessible primitives, keyboard shortcuts, and adaptive theming. Press <Badge tone="neutral">⌘ K</Badge> or use
+            the buttons below to try the command palette.
+          </Text>
+        </Stack>
       </Stack>
       <Stack direction="row" gap="sm" wrap>
         <Button onClick={onOpenPalette}>Open palette</Button>
@@ -218,7 +223,7 @@ const App = () => {
 
         <section>
           <Text variant="title">Inputs & controls</Text>
-          <Card>
+          <Card className="app-panel" shadow="md">
             <Stack gap="md">
               <Stack direction="row" gap="md" wrap>
                 <Field label="Name">
@@ -261,7 +266,7 @@ const App = () => {
 
         <section>
           <Text variant="title">Avatars & status</Text>
-          <Card>
+          <Card className="app-panel" shadow="md">
             <Stack direction="row" gap="md" align="center">
               <Avatar name="Samantha Rivers" src="https://i.pravatar.cc/120?img=32" />
               <Avatar name="Alex Chen" size="lg" fallback="AC" />
@@ -272,7 +277,7 @@ const App = () => {
 
         <section>
           <Text variant="title">Tables & data</Text>
-          <Card>
+          <Card className="app-panel data-panel" shadow="lg">
             <DataTable<Customer>
               data={visibleCustomers}
               columns={customerColumns}
@@ -289,7 +294,7 @@ const App = () => {
 
         <section>
           <Text variant="title">Progress & feedback</Text>
-          <Card>
+          <Card className="app-panel" shadow="md">
             <Stack gap="sm">
               <Progress label="Invite campaign" value={progress} showValue />
               <Stack direction="row" gap="sm">
@@ -308,14 +313,14 @@ const App = () => {
           <Text variant="title">Context menus & toasts</Text>
           <Stack direction="row" gap="md" wrap>
             <ContextMenu items={contextMenuItems}>
-              <Card hoverable>
+              <Card hoverable className="app-panel interactive-panel" shadow="md">
                 <Stack gap="sm">
                   <Text variant="title">Right-click me</Text>
                   <Text variant="body">Open the contextual actions menu anywhere in this card.</Text>
                 </Stack>
               </Card>
             </ContextMenu>
-            <Card>
+            <Card className="app-panel" shadow="md">
               <Stack gap="sm">
                 <Text variant="title">Notifications</Text>
                 <Stack direction="row" gap="sm" wrap>
