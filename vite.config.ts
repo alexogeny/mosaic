@@ -4,6 +4,7 @@ import path from "node:path";
 
 export default defineConfig({
   root: path.resolve(__dirname, "docs"),
+  base: "./",
   plugins: [react()],
   resolve: {
     alias: {
