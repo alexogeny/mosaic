@@ -1,3 +1,4 @@
+export { Alert } from "./components/Alert";
 export { Button } from "./components/Button";
 export { Card } from "./components/Card";
 export { Field } from "./components/Field";
@@ -20,8 +21,10 @@ export { Accordion } from "./components/Accordion";
 export { Pagination } from "./components/Pagination";
 export { Progress } from "./components/Progress";
 export { RadioGroup, Radio } from "./components/RadioGroup";
+export { Skeleton } from "./components/Skeleton";
 export { Sheet } from "./components/Sheet";
 export { Select } from "./components/Select";
+export { Spinner } from "./components/Spinner";
 export { Switch } from "./components/Switch";
 export { Slider } from "./components/Slider";
 export { ToastProvider, useToast } from "./components/Toast";

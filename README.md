@@ -164,6 +164,7 @@ Pass an array to `defaultValue`/`value` when `type="multiple"`, and set `collaps
 
 ### Components
 
+- `Alert` – Tone-aware banners with dismissible info, success, warning, and error states.
 - `Avatar` – Adaptive initials and imagery with sizing and fallback states.
 - `Badge` – Tone-aware indicators with solid, soft, and outline variants.
 - `Button` – Solid, soft, outline, ghost, and loading states with tone tokens.
@@ -184,6 +185,8 @@ Pass an array to `defaultValue`/`value` when `type="multiple"`, and set `collaps
 - `Slider` – Accessible range input with accent-aware focus and error states.
 - `Pagination` – Paginated navigation with ellipsis handling.
 - `Progress` – Determinate and indeterminate indicators with optional labels.
+- `Skeleton` – Animated placeholders that pause automatically when reduced motion is enabled.
+- `Spinner` – Inline loading indicator that shares motion tokens with `Progress`.
 - `Textarea` – Multi-line input with size controls and shared token styling.
 - `Stack` – Flexbox layout utility for column/row alignment and spacing.
 - `Switch` – Accessible toggle with descriptive text support.
