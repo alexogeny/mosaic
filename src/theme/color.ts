@@ -121,26 +121,26 @@ const colorVisionSemantics: Record<ColorVisionMode, Partial<typeof semanticDefau
 };
 
 const baseLight = {
-  background: "#f8fafc",
+  background: "#f5f6fa",
   surface: "#ffffff",
-  surfaceHover: "#f4f4f5",
-  surfaceActive: "#e4e4e7",
-  border: "#e2e8f0",
+  surfaceHover: "#eef1f8",
+  surfaceActive: "#e1e6f0",
+  border: "#d7deeb",
 };
 
 const baseDark = {
-  background: "#020817",
-  surface: "#0f172a",
-  surfaceHover: "#1e293b",
-  surfaceActive: "#334155",
-  border: "#1e293b",
+  background: "#050b1c",
+  surface: "#0b1220",
+  surfaceHover: "#141d2e",
+  surfaceActive: "#1d2739",
+  border: "#2a3448",
 };
 
 const lighten = (color: string, amount: number) => mix(color, "#ffffff", amount);
 const darken = (color: string, amount: number) => mix(color, "#000000", amount);
 
 const neutralFromAppearance = (appearance: Appearance) =>
-  appearance === "light" ? "#1f2937" : "#cbd5f5";
+  appearance === "light" ? "#1c2534" : "#c9d4f8";
 
 const highContrastBackground = (appearance: Appearance) =>
   appearance === "light" ? "#ffffff" : "#000000";
@@ -272,18 +272,18 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
     "line-height-tight": "1.2",
     "line-height-normal": "1.5",
     "line-height-relaxed": "1.7",
-    "radius-sm": "0.5rem",
-    "radius-md": "0.75rem",
-    "radius-lg": "1rem",
+    "radius-sm": "0.25rem",
+    "radius-md": "0.375rem",
+    "radius-lg": "0.5rem",
     "shadow-sm": appearance === "light"
-      ? "0 1px 2px 0 rgba(15, 23, 42, 0.08)"
-      : "0 1px 2px 0 rgba(2, 6, 23, 0.75)",
+      ? "0 1px 0 rgba(15, 23, 42, 0.08)"
+      : "0 1px 0 rgba(2, 6, 23, 0.6)",
     "shadow-md": appearance === "light"
-      ? "0 4px 6px -1px rgba(15, 23, 42, 0.12), 0 2px 4px -1px rgba(15, 23, 42, 0.08)"
-      : "0 8px 12px -2px rgba(2, 6, 23, 0.78), 0 4px 6px -2px rgba(15, 23, 42, 0.5)",
+      ? "0 6px 12px -6px rgba(15, 23, 42, 0.16)"
+      : "0 6px 12px -6px rgba(2, 6, 23, 0.65)",
     "shadow-lg": appearance === "light"
-      ? "0 16px 32px -12px rgba(15, 23, 42, 0.16), 0 8px 16px -8px rgba(15, 23, 42, 0.08)"
-      : "0 24px 44px -18px rgba(2, 6, 23, 0.82), 0 12px 24px -12px rgba(15, 23, 42, 0.55)",
+      ? "0 18px 48px -24px rgba(15, 23, 42, 0.28)"
+      : "0 20px 52px -26px rgba(2, 6, 23, 0.7)",
     "border-width": highContrast ? "2px" : "1px",
     "motion-duration": reducedMotion ? "0ms" : "180ms",
     "motion-ease": reducedMotion ? "linear" : "cubic-bezier(0.16, 1, 0.3, 1)",
