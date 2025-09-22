@@ -121,26 +121,26 @@ const colorVisionSemantics: Record<ColorVisionMode, Partial<typeof semanticDefau
 };
 
 const baseLight = {
-  background: "#f4f4f5",
+  background: "#f8fafc",
   surface: "#ffffff",
-  surfaceHover: "#f7f7f8",
-  surfaceActive: "#eeeeef",
-  border: "#e4e4e7",
+  surfaceHover: "#f4f4f5",
+  surfaceActive: "#e4e4e7",
+  border: "#e2e8f0",
 };
 
 const baseDark = {
-  background: "#09090b",
-  surface: "#111114",
-  surfaceHover: "#18181c",
-  surfaceActive: "#1f1f24",
-  border: "#27272a",
+  background: "#020817",
+  surface: "#0f172a",
+  surfaceHover: "#1e293b",
+  surfaceActive: "#334155",
+  border: "#1e293b",
 };
 
 const lighten = (color: string, amount: number) => mix(color, "#ffffff", amount);
 const darken = (color: string, amount: number) => mix(color, "#000000", amount);
 
 const neutralFromAppearance = (appearance: Appearance) =>
-  appearance === "light" ? "#18181b" : "#d4d4d8";
+  appearance === "light" ? "#1f2937" : "#cbd5f5";
 
 const highContrastBackground = (appearance: Appearance) =>
   appearance === "light" ? "#ffffff" : "#000000";
@@ -207,11 +207,11 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
   const textBase = highContrast
     ? highContrastText(appearance)
     : appearance === "light"
-      ? "#111114"
-      : "#f5f5f6";
-  const textMuted = appearance === "light" ? "#3f3f46" : "#a1a1aa";
-  const textSubtle = appearance === "light" ? "#71717a" : "#8f90a6";
-  const inverted = appearance === "light" ? "#ffffff" : "#09090b";
+      ? "#0f172a"
+      : "#e2e8f0";
+  const textMuted = appearance === "light" ? "#475569" : "#94a3b8";
+  const textSubtle = appearance === "light" ? "#64748b" : "#cbd5f5";
+  const inverted = appearance === "light" ? "#020817" : "#f8fafc";
 
   const neutralSoftBase = appearance === "light" ? lighten(neutral, 0.9) : darken(neutral, 0.55);
 
@@ -272,18 +272,18 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
     "line-height-tight": "1.2",
     "line-height-normal": "1.5",
     "line-height-relaxed": "1.7",
-    "radius-sm": "0.75rem",
-    "radius-md": "1rem",
-    "radius-lg": "1.5rem",
+    "radius-sm": "0.5rem",
+    "radius-md": "0.75rem",
+    "radius-lg": "1rem",
     "shadow-sm": appearance === "light"
-      ? "0 1px 2px rgba(15, 23, 42, 0.12), 0 1px 0 rgba(15, 23, 42, 0.06)"
-      : "0 1px 2px rgba(2, 6, 23, 0.7), 0 1px 0 rgba(148, 163, 184, 0.12)",
+      ? "0 1px 2px 0 rgba(15, 23, 42, 0.08)"
+      : "0 1px 2px 0 rgba(2, 6, 23, 0.75)",
     "shadow-md": appearance === "light"
-      ? "0 12px 32px -18px rgba(15, 23, 42, 0.22), 0 6px 18px -12px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.06)"
-      : "0 22px 48px -24px rgba(2, 6, 23, 0.74), 0 10px 32px -18px rgba(15, 23, 42, 0.48), 0 0 0 1px rgba(148, 163, 184, 0.14)",
+      ? "0 4px 6px -1px rgba(15, 23, 42, 0.12), 0 2px 4px -1px rgba(15, 23, 42, 0.08)"
+      : "0 8px 12px -2px rgba(2, 6, 23, 0.78), 0 4px 6px -2px rgba(15, 23, 42, 0.5)",
     "shadow-lg": appearance === "light"
-      ? "0 28px 64px -34px rgba(15, 23, 42, 0.24), 0 14px 36px -24px rgba(15, 23, 42, 0.2), 0 0 0 1px rgba(15, 23, 42, 0.05)"
-      : "0 36px 84px -36px rgba(2, 6, 23, 0.78), 0 18px 54px -28px rgba(15, 23, 42, 0.52), 0 0 0 1px rgba(148, 163, 184, 0.16)",
+      ? "0 16px 32px -12px rgba(15, 23, 42, 0.16), 0 8px 16px -8px rgba(15, 23, 42, 0.08)"
+      : "0 24px 44px -18px rgba(2, 6, 23, 0.82), 0 12px 24px -12px rgba(15, 23, 42, 0.55)",
     "border-width": highContrast ? "2px" : "1px",
     "motion-duration": reducedMotion ? "0ms" : "180ms",
     "motion-ease": reducedMotion ? "linear" : "cubic-bezier(0.16, 1, 0.3, 1)",

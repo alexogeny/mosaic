@@ -1,6 +1,6 @@
 export const baseStyles = `
 :root {
-  --mosaic-focus-ring: 0 0 0 1.5px var(--mosaic-color-surface), 0 0 0 4px var(--mosaic-color-ring);
+  --mosaic-focus-ring: 0 0 0 2px var(--mosaic-color-background), 0 0 0 4px var(--mosaic-color-ring);
 }
 
 .mosaic-button {
@@ -9,14 +9,14 @@ export const baseStyles = `
   --mosaic-button-shadow-active: var(--mosaic-button-shadow);
   appearance: none;
   border: var(--mosaic-border-width) solid var(--mosaic-button-border, transparent);
-  border-radius: var(--mosaic-radius-md);
+  border-radius: var(--mosaic-radius-sm);
   background-color: var(--mosaic-button-bg, transparent);
   color: var(--mosaic-button-fg, var(--mosaic-color-text));
   font-family: var(--mosaic-font-family-base);
   font-weight: 500;
   font-size: var(--mosaic-button-font-size, var(--mosaic-text-size-md));
   line-height: var(--mosaic-line-height-tight);
-  letter-spacing: -0.015em;
+  letter-spacing: 0;
   padding-block: var(--mosaic-button-padding-y, var(--mosaic-spacing-sm));
   padding-inline: var(--mosaic-button-padding-x, var(--mosaic-spacing-md));
   display: inline-flex;
@@ -31,7 +31,7 @@ export const baseStyles = `
     border-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     transform var(--mosaic-motion-duration) var(--mosaic-motion-ease);
-  min-height: calc(2.75rem + var(--mosaic-button-size-adjust, 0));
+  min-height: calc(2.5rem + var(--mosaic-button-size-adjust, 0));
   box-shadow: var(--mosaic-button-shadow);
 }
 
@@ -59,7 +59,6 @@ export const baseStyles = `
 
 .mosaic-button[data-variant="solid"]:active:not(:disabled) {
   background-color: var(--mosaic-button-bg-active, var(--mosaic-button-bg));
-  transform: translateY(1px);
 }
 
 .mosaic-button[data-variant="soft"] {
@@ -211,7 +210,6 @@ export const baseStyles = `
 
 .mosaic-card[data-hoverable="true"]:hover {
   box-shadow: var(--mosaic-card-shadow-hover, var(--mosaic-shadow-md));
-  transform: translateY(-2px);
   background-color: var(--mosaic-card-bg-hover, var(--mosaic-card-bg, var(--mosaic-color-surface-hover)));
   border-color: var(--mosaic-card-border-hover, var(--mosaic-card-border, var(--mosaic-color-border)));
 }
@@ -229,13 +227,13 @@ export const baseStyles = `
   position: relative;
   display: flex;
   align-items: flex-start;
-  gap: var(--mosaic-spacing-md);
-  padding-block: var(--mosaic-spacing-sm);
+  gap: var(--mosaic-spacing-sm);
+  padding-block: calc(var(--mosaic-spacing-sm) + 0.125rem);
   padding-inline: var(--mosaic-spacing-md);
-  padding-inline-start: calc(var(--mosaic-spacing-md) + 0.5rem);
+  padding-inline-start: calc(var(--mosaic-spacing-md) + 0.25rem);
   background-color: var(--mosaic-alert-bg, var(--mosaic-color-surface));
   border: var(--mosaic-border-width) solid var(--mosaic-alert-border, var(--mosaic-color-border));
-  border-radius: var(--mosaic-radius-lg);
+  border-radius: var(--mosaic-radius-md);
   color: var(--mosaic-alert-fg, var(--mosaic-color-text));
   box-shadow: var(--mosaic-alert-shadow, var(--mosaic-shadow-sm));
 }
@@ -245,7 +243,7 @@ export const baseStyles = `
   position: absolute;
   inset-block: var(--mosaic-spacing-sm);
   inset-inline-start: var(--mosaic-spacing-sm);
-  width: 0.3rem;
+  width: 0.25rem;
   border-radius: 999px;
   background-color: var(--mosaic-alert-accent, var(--mosaic-color-primary));
 }
@@ -382,9 +380,9 @@ export const baseStyles = `
 .mosaic-input {
   width: 100%;
   font: inherit;
-  padding-block: var(--mosaic-input-padding-y, var(--mosaic-spacing-sm));
-  padding-inline: var(--mosaic-input-padding-x, var(--mosaic-spacing-md));
-  border-radius: var(--mosaic-radius-md);
+  padding-block: var(--mosaic-input-padding-y, calc(var(--mosaic-spacing-sm) - 0.25rem));
+  padding-inline: var(--mosaic-input-padding-x, calc(var(--mosaic-spacing-md) - 0.375rem));
+  border-radius: var(--mosaic-radius-sm);
   border: var(--mosaic-border-width) solid var(--mosaic-color-border);
   background-color: var(--mosaic-color-surface);
   color: var(--mosaic-color-text);
@@ -422,9 +420,9 @@ export const baseStyles = `
   width: 100%;
   min-height: 6rem;
   font: inherit;
-  padding-block: var(--mosaic-textarea-padding-y, var(--mosaic-spacing-sm));
-  padding-inline: var(--mosaic-textarea-padding-x, var(--mosaic-spacing-md));
-  border-radius: var(--mosaic-radius-md);
+  padding-block: var(--mosaic-textarea-padding-y, calc(var(--mosaic-spacing-sm) - 0.25rem));
+  padding-inline: var(--mosaic-textarea-padding-x, calc(var(--mosaic-spacing-md) - 0.375rem));
+  border-radius: var(--mosaic-radius-sm);
   border: var(--mosaic-border-width) solid var(--mosaic-color-border);
   background-color: var(--mosaic-color-surface);
   color: var(--mosaic-color-text);
