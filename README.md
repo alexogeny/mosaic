@@ -123,8 +123,12 @@ Use `getCssVar("color-primary")` inside component styles to reference tokens, or
 - `Dialog` & `Sheet` – Modal and slide-over overlays with focus traps and motion awareness.
 - `Field` – Form wrapper that wires labels, hints, and errors to controls automatically.
 - `Input` – Accessible text input with size and validation states.
+- `RadioGroup` & `Radio` – Keyboard navigable sets with descriptions and validation styling.
+- `Select` – Styled native select that adopts Mosaic tokens and focus treatments.
+- `Slider` – Accessible range input with accent-aware focus and error states.
 - `Pagination` – Paginated navigation with ellipsis handling.
 - `Progress` – Determinate and indeterminate indicators with optional labels.
+- `Textarea` – Multi-line input with size controls and shared token styling.
 - `Stack` – Flexbox layout utility for column/row alignment and spacing.
 - `Switch` – Accessible toggle with descriptive text support.
 - `Text` – Semantic typography variants with tone helpers and truncation support.

@@ -39,6 +39,7 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
   ) => {
     const generatedId = useId();
     const fieldId = id ?? `mosaic-field-${generatedId}`;
+    const labelId = label ? `${fieldId}-label` : undefined;
     const descriptionId = description ? `${fieldId}-description` : undefined;
     const hintId = hint ? `${fieldId}-hint` : undefined;
     const errorId = error ? `${fieldId}-error` : undefined;
@@ -48,6 +49,7 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
       const childProps = children.props as Partial<InputProps> & {
         id?: string;
         "aria-describedby"?: string;
+        "aria-labelledby"?: string;
         "aria-invalid"?: boolean | "true" | "false";
       };
       const describedBy = join(
@@ -56,9 +58,11 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
         descriptionId,
         errorId,
       );
+      const labelledBy = join(childProps["aria-labelledby"], labelId);
       control = cloneElement(children, {
         id: childProps.id ?? fieldId,
         "aria-describedby": describedBy || undefined,
+        "aria-labelledby": labelledBy || undefined,
         "aria-invalid": error ? true : childProps["aria-invalid"],
         required: required || childProps.required,
       });
@@ -72,7 +76,7 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
         {...rest}
       >
         {label ? (
-          <label className="mosaic-field__label" htmlFor={fieldId}>
+          <label className="mosaic-field__label" id={labelId} htmlFor={fieldId}>
             {label}
             {required ? <span className="mosaic-field__required">*</span> : null}
           </label>
