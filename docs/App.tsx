@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import {
+  Accordion,
   Avatar,
   Badge,
   Button,
@@ -21,6 +22,7 @@ import {
   Slider,
   Stack,
   Switch,
+  Tabs,
   Text,
   Textarea,
   ThemePanel,
@@ -145,6 +147,7 @@ const App = () => {
   const [framework, setFramework] = useState<string | null>(languageOptions[0]?.value ?? null);
   const [priority, setPriority] = useState("normal");
   const [cadence, setCadence] = useState("daily");
+  const [activeTab, setActiveTab] = useState("overview");
   const [notes, setNotes] = useState("");
   const [progress, setProgress] = useState(45);
   const [volume, setVolume] = useState(60);
@@ -361,6 +364,72 @@ const App = () => {
                   Speed up
                 </Button>
               </Stack>
+            </Stack>
+          </Card>
+        </section>
+
+        <section>
+          <Text variant="title">Navigation & disclosure</Text>
+          <Card className="app-panel" shadow="md">
+            <Stack gap="lg">
+              <Tabs value={activeTab} onValueChange={setActiveTab} activationMode="manual">
+                <Tabs.List aria-label="Workspace snapshots">
+                  <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+                  <Tabs.Trigger value="reports">Reports</Tabs.Trigger>
+                  <Tabs.Trigger value="activity">Activity</Tabs.Trigger>
+                </Tabs.List>
+                <Tabs.Panel value="overview">
+                  <Stack gap="xs">
+                    <Text variant="label">Team overview</Text>
+                    <Text variant="body">
+                      Summarize platform health, adoption momentum, and active initiatives in one glance.
+                    </Text>
+                  </Stack>
+                </Tabs.Panel>
+                <Tabs.Panel value="reports">
+                  <Stack gap="xs">
+                    <Text variant="label">Automated reports</Text>
+                    <Text variant="body">
+                      Schedule weekly scorecards with exportable CSVs and shareable dashboards.
+                    </Text>
+                  </Stack>
+                </Tabs.Panel>
+                <Tabs.Panel value="activity">
+                  <Stack gap="xs">
+                    <Text variant="label">Recent activity</Text>
+                    <Text variant="body">
+                      Track deployments, approvals, and escalations with keyboard shortcuts and deep links.
+                    </Text>
+                  </Stack>
+                </Tabs.Panel>
+              </Tabs>
+              <Text variant="caption">Active tab: {activeTab}</Text>
+              <Accordion type="multiple" defaultValue={["announcements"]}>
+                <Accordion.Item value="announcements">
+                  <Accordion.Trigger>Announcements</Accordion.Trigger>
+                  <Accordion.Content>
+                    <Stack gap="xs">
+                      <Text variant="body">Broadcast launch notes, downtime notices, and success stories.</Text>
+                      <Text variant="caption">Subscribers: product, sales, leadership</Text>
+                    </Stack>
+                  </Accordion.Content>
+                </Accordion.Item>
+                <Accordion.Item value="reminders">
+                  <Accordion.Trigger>Reminders</Accordion.Trigger>
+                  <Accordion.Content>
+                    <Stack gap="xs">
+                      <Text variant="body">Automate nudges for incomplete reviews and stale follow-ups.</Text>
+                      <Text variant="caption">Triggers every weekday at 9:00am</Text>
+                    </Stack>
+                  </Accordion.Content>
+                </Accordion.Item>
+                <Accordion.Item value="archived" disabled>
+                  <Accordion.Trigger>Archived streams</Accordion.Trigger>
+                  <Accordion.Content>
+                    <Text variant="body">Legacy content stays available for auditors and future retrospectives.</Text>
+                  </Accordion.Content>
+                </Accordion.Item>
+              </Accordion>
             </Stack>
           </Card>
         </section>

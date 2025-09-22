@@ -108,6 +108,60 @@ const { appearance, toggleAppearance, highContrast, toggleHighContrast } = useTh
 
 Use `getCssVar("color-primary")` inside component styles to reference tokens, or grab `cssVariables` for inline styles.
 
+### Tabs
+
+`Tabs` exposes a roving-tabindex implementation with automatic or manual activation and horizontal or vertical orientation:
+
+```tsx
+import { Tabs, Text } from "mosaic-ui";
+
+<Tabs defaultValue="overview" activationMode="automatic">
+  <Tabs.List aria-label="Project views">
+    <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+    <Tabs.Trigger value="activity">Activity</Tabs.Trigger>
+    <Tabs.Trigger value="settings" disabled>
+      Settings
+    </Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Panel value="overview">
+    <Text variant="body">Give stakeholders a quick health summary.</Text>
+  </Tabs.Panel>
+  <Tabs.Panel value="activity">
+    <Text variant="body">Show audit trails, deploys, and alerts.</Text>
+  </Tabs.Panel>
+  <Tabs.Panel value="settings">
+    <Text variant="body">Configure integrations and access policies.</Text>
+  </Tabs.Panel>
+</Tabs>;
+```
+
+Use `activationMode="manual"` to require <kbd>Enter</kbd>/<kbd>Space</kbd> confirmation, and set `orientation="vertical"` for sidebar layouts. Always label the tab list with `aria-label` or `aria-labelledby` when no visible heading is present.
+
+### Accordion
+
+`Accordion` renders collapsible sections with arrow-key navigation. Choose `type="single"` (default) for an allow-one-open experience, or `type="multiple"` to keep several panels expanded.
+
+```tsx
+import { Accordion, Text } from "mosaic-ui";
+
+<Accordion defaultValue="notifications" collapsible>
+  <Accordion.Item value="notifications">
+    <Accordion.Trigger>Email notifications</Accordion.Trigger>
+    <Accordion.Content>
+      <Text variant="body">Send weekly digests and escalation alerts to collaborators.</Text>
+    </Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="integrations">
+    <Accordion.Trigger>Integrations</Accordion.Trigger>
+    <Accordion.Content>
+      <Text variant="body">Connect to Slack, PagerDuty, or a custom webhook destination.</Text>
+    </Accordion.Content>
+  </Accordion.Item>
+</Accordion>;
+```
+
+Pass an array to `defaultValue`/`value` when `type="multiple"`, and set `collapsible` to `true` on single accordions to allow toggling the final open section closed.
+
 ### Components
 
 - `Avatar` – Adaptive initials and imagery with sizing and fallback states.
@@ -124,6 +178,8 @@ Use `getCssVar("color-primary")` inside component styles to reference tokens, or
 - `Field` – Form wrapper that wires labels, hints, and errors to controls automatically.
 - `Input` – Accessible text input with size and validation states.
 - `RadioGroup` & `Radio` – Keyboard navigable sets with descriptions and validation styling.
+- `Tabs` – Orientation-aware tablist with roving focus, manual/automatic activation, and accessible panels.
+- `Accordion` – Arrow-key navigable disclosure with single or multiple expansion modes.
 - `Select` – Styled native select that adopts Mosaic tokens and focus treatments.
 - `Slider` – Accessible range input with accent-aware focus and error states.
 - `Pagination` – Paginated navigation with ellipsis handling.
