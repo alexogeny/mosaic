@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import {
   Accordion,
+  Alert,
   Avatar,
   Badge,
   Button,
@@ -17,8 +18,10 @@ import {
   RadioGroup,
   Pagination,
   Progress,
+  Skeleton,
   Sheet,
   Select,
+  Spinner,
   Slider,
   Stack,
   Switch,
@@ -151,6 +154,8 @@ const App = () => {
   const [notes, setNotes] = useState("");
   const [progress, setProgress] = useState(45);
   const [volume, setVolume] = useState(60);
+  const [showInfoAlert, setShowInfoAlert] = useState(true);
+  const [showSkeleton, setShowSkeleton] = useState(true);
   const themePanelRef = useRef<HTMLDivElement | null>(null);
   const { toast } = useToast();
   const { togglePalette } = useCommandPalette();
@@ -354,15 +359,101 @@ const App = () => {
         <section>
           <Text variant="title">Progress & feedback</Text>
           <Card className="app-panel" shadow="md">
-            <Stack gap="sm">
-              <Progress label="Invite campaign" value={progress} showValue />
-              <Stack direction="row" gap="sm">
-                <Button tone="neutral" variant="outline" onClick={() => setProgress((value) => Math.max(0, value - 10))}>
-                  Slow down
+            <Stack gap="lg">
+              <Stack gap="sm">
+                <Progress label="Invite campaign" value={progress} showValue />
+                <Stack direction="row" gap="sm">
+                  <Button tone="neutral" variant="outline" onClick={() => setProgress((value) => Math.max(0, value - 10))}>
+                    Slow down
+                  </Button>
+                  <Button tone="primary" onClick={() => setProgress((value) => Math.min(100, value + 10))}>
+                    Speed up
+                  </Button>
+                </Stack>
+              </Stack>
+
+              <Stack gap="sm">
+                <Text variant="label">Announcements</Text>
+                {showInfoAlert ? (
+                  <Alert
+                    tone="info"
+                    heading="Workspace research hub"
+                    description="Share curated studies and insights with stakeholders."
+                    icon="ℹ️"
+                    actions={
+                      <Button size="sm" variant="ghost" tone="primary">
+                        Review plan
+                      </Button>
+                    }
+                    onDismiss={() => setShowInfoAlert(false)}
+                  />
+                ) : (
+                  <Button size="sm" variant="ghost" tone="neutral" onClick={() => setShowInfoAlert(true)}>
+                    Restore informational alert
+                  </Button>
+                )}
+                <Alert
+                  tone="success"
+                  heading="Launch checklist complete"
+                  description="All validation tasks have passed and the release is ready."
+                  icon="✔️"
+                />
+                <Alert
+                  tone="warning"
+                  heading="Sandbox tokens expiring soon"
+                  description="Rotate credentials within the next 24 hours to avoid downtime."
+                  icon="⚠️"
+                  actions={
+                    <Button size="sm" variant="outline" tone="warning">
+                      Rotate keys
+                    </Button>
+                  }
+                />
+                <Alert
+                  tone="error"
+                  heading="Billing sync failed"
+                  description="Retry the connection or update the API key to restore exports."
+                  icon="⛔️"
+                />
+              </Stack>
+
+              <Stack gap="sm">
+                <Text variant="label">Loading states</Text>
+                <Stack direction="row" gap="sm" align="center">
+                  {showSkeleton ? (
+                    <Spinner size="sm" tone="primary" label="Syncing workspace content" />
+                  ) : (
+                    <Badge tone="success" variant="soft">
+                      Synced
+                    </Badge>
+                  )}
+                  <Text variant="body">
+                    {showSkeleton ? "Syncing workspace content…" : "Workspace content is up to date."}
+                  </Text>
+                </Stack>
+                <Button size="sm" variant="ghost" tone="neutral" onClick={() => setShowSkeleton((value) => !value)}>
+                  {showSkeleton ? "Show loaded preview" : "Reset placeholders"}
                 </Button>
-                <Button tone="primary" onClick={() => setProgress((value) => Math.min(100, value + 10))}>
-                  Speed up
-                </Button>
+                {showSkeleton ? (
+                  <Stack gap="sm">
+                    <Stack direction="row" gap="sm" align="center">
+                      <Skeleton variant="circle" style={{ width: "2.5rem", height: "2.5rem" }} />
+                      <Stack gap="xs" style={{ flex: 1 }}>
+                        <Skeleton variant="text" style={{ width: "60%" }} />
+                        <Skeleton variant="text" style={{ width: "40%" }} />
+                      </Stack>
+                    </Stack>
+                    <Skeleton style={{ height: "6rem" }} />
+                  </Stack>
+                ) : (
+                  <Stack gap="xs">
+                    <Text variant="body">Team insights and charts are ready to share.</Text>
+                    <Text variant="caption">Reset placeholders to preview the skeleton shimmer again.</Text>
+                  </Stack>
+                )}
+                <Text variant="caption">
+                  Toggle reduced motion in the theme panel to pause the spinner and shimmer automatically.
+                </Text>
               </Stack>
             </Stack>
           </Card>

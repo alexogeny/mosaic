@@ -158,6 +158,94 @@ export const baseStyles = `
   --mosaic-card-border: var(--mosaic-color-primary-border);
 }
 
+.mosaic-alert {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mosaic-spacing-md);
+  padding-block: var(--mosaic-spacing-sm);
+  padding-inline: var(--mosaic-spacing-md);
+  padding-inline-start: calc(var(--mosaic-spacing-md) + 0.5rem);
+  background-color: var(--mosaic-alert-bg, var(--mosaic-color-surface));
+  border: var(--mosaic-border-width) solid var(--mosaic-alert-border, var(--mosaic-color-border));
+  border-radius: var(--mosaic-radius-lg);
+  color: var(--mosaic-alert-fg, var(--mosaic-color-text));
+}
+
+.mosaic-alert::before {
+  content: "";
+  position: absolute;
+  inset-block: var(--mosaic-spacing-sm);
+  inset-inline-start: var(--mosaic-spacing-sm);
+  width: 0.3rem;
+  border-radius: 999px;
+  background-color: var(--mosaic-alert-accent, var(--mosaic-color-primary));
+}
+
+.mosaic-alert__body {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mosaic-spacing-md);
+  flex: 1;
+  min-width: 0;
+}
+
+.mosaic-alert__icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--mosaic-alert-icon, var(--mosaic-alert-accent, var(--mosaic-color-primary)));
+  margin-top: 0.125rem;
+}
+
+.mosaic-alert__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mosaic-spacing-xs);
+  flex: 1;
+  min-width: 0;
+}
+
+.mosaic-alert__title {
+  font-weight: 600;
+  color: var(--mosaic-alert-title, var(--mosaic-color-text));
+  font-size: var(--mosaic-text-size-md);
+  line-height: var(--mosaic-line-height-tight);
+}
+
+.mosaic-alert__description {
+  color: var(--mosaic-alert-description, var(--mosaic-color-text-muted));
+  font-size: var(--mosaic-text-size-sm);
+  line-height: var(--mosaic-line-height-normal);
+}
+
+.mosaic-alert__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--mosaic-spacing-xs);
+  margin-top: var(--mosaic-spacing-xs);
+}
+
+.mosaic-alert__dismiss {
+  border: none;
+  background: transparent;
+  color: var(--mosaic-alert-dismiss, var(--mosaic-color-text-muted));
+  border-radius: var(--mosaic-radius-sm);
+  padding: var(--mosaic-spacing-xs);
+  cursor: pointer;
+  line-height: 1;
+  align-self: flex-start;
+}
+
+.mosaic-alert__dismiss:hover,
+.mosaic-alert__dismiss:focus-visible {
+  color: var(--mosaic-alert-accent, var(--mosaic-color-primary));
+}
+
+.mosaic-alert__dismiss:focus-visible {
+  outline: none;
+  box-shadow: var(--mosaic-focus-ring);
+}
+
 .mosaic-text {
   margin: 0;
   color: var(--mosaic-text-color, inherit);
@@ -1037,6 +1125,78 @@ export const baseStyles = `
   }
   50% {
     transform: translateX(20%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.mosaic-spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.mosaic-spinner__circle {
+  width: var(--mosaic-spinner-size, 1.5rem);
+  height: var(--mosaic-spinner-size, 1.5rem);
+  border-radius: 50%;
+  border: 3px solid var(--mosaic-spinner-track, var(--mosaic-color-border));
+  border-top-color: var(--mosaic-spinner-color, var(--mosaic-color-primary));
+  border-right-color: var(--mosaic-spinner-color, var(--mosaic-color-primary));
+  box-sizing: border-box;
+  animation: mosaic-spin calc(var(--mosaic-motion-duration) * 6) var(--mosaic-motion-ease) infinite;
+}
+
+[data-mosaic-reduced-motion="true"] .mosaic-spinner__circle {
+  animation: none;
+}
+
+.mosaic-skeleton {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  background-color: var(--mosaic-skeleton-base, var(--mosaic-color-surface-hover));
+  border-radius: var(--mosaic-skeleton-radius, var(--mosaic-radius-md));
+  min-height: 0.5rem;
+}
+
+.mosaic-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--mosaic-skeleton-highlight, var(--mosaic-color-surface)) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: mosaic-skeleton-shimmer calc(var(--mosaic-motion-duration) * 12) var(--mosaic-motion-ease) infinite;
+}
+
+.mosaic-skeleton[data-variant="text"] {
+  border-radius: var(--mosaic-radius-sm);
+  height: 1em;
+  width: 100%;
+}
+
+.mosaic-skeleton[data-variant="circle"] {
+  border-radius: 999px;
+}
+
+.mosaic-skeleton[data-animate="false"]::after {
+  display: none;
+}
+
+[data-mosaic-reduced-motion="true"] .mosaic-skeleton::after {
+  animation: none;
+}
+
+@keyframes mosaic-skeleton-shimmer {
+  0% {
+    transform: translateX(-100%);
   }
   100% {
     transform: translateX(100%);
