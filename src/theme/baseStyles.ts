@@ -1,6 +1,6 @@
 export const baseStyles = `
 :root {
-  --mosaic-focus-ring: 0 0 0 2px var(--mosaic-color-background), 0 0 0 4px var(--mosaic-color-ring);
+  --mosaic-focus-ring: 0 0 0 1px var(--mosaic-color-background), 0 0 0 3px var(--mosaic-color-ring);
 }
 
 .mosaic-button {
@@ -8,7 +8,7 @@ export const baseStyles = `
   --mosaic-button-shadow-hover: var(--mosaic-button-shadow);
   --mosaic-button-shadow-active: var(--mosaic-button-shadow);
   appearance: none;
-  border: var(--mosaic-border-width) solid var(--mosaic-button-border, transparent);
+  border: var(--mosaic-border-width) solid var(--mosaic-button-border, var(--mosaic-color-border));
   border-radius: var(--mosaic-radius-sm);
   background-color: var(--mosaic-button-bg, transparent);
   color: var(--mosaic-button-fg, var(--mosaic-color-text));
@@ -16,9 +16,9 @@ export const baseStyles = `
   font-weight: 500;
   font-size: var(--mosaic-button-font-size, var(--mosaic-text-size-md));
   line-height: var(--mosaic-line-height-tight);
-  letter-spacing: 0;
-  padding-block: var(--mosaic-button-padding-y, var(--mosaic-spacing-sm));
-  padding-inline: var(--mosaic-button-padding-x, var(--mosaic-spacing-md));
+  letter-spacing: 0.01em;
+  padding-block: var(--mosaic-button-padding-y, calc(var(--mosaic-spacing-sm) - 0.125rem));
+  padding-inline: var(--mosaic-button-padding-x, calc(var(--mosaic-spacing-md) - 0.25rem));
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -31,7 +31,7 @@ export const baseStyles = `
     border-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     transform var(--mosaic-motion-duration) var(--mosaic-motion-ease);
-  min-height: calc(2.5rem + var(--mosaic-button-size-adjust, 0));
+  min-height: calc(2.25rem + var(--mosaic-button-size-adjust, 0));
   box-shadow: var(--mosaic-button-shadow);
 }
 
@@ -148,8 +148,8 @@ export const baseStyles = `
   background-color: var(--mosaic-card-bg, var(--mosaic-color-surface));
   color: var(--mosaic-card-fg, var(--mosaic-color-text));
   border: var(--mosaic-border-width) solid var(--mosaic-card-border, var(--mosaic-color-border));
-  border-radius: var(--mosaic-radius-lg);
-  padding: var(--mosaic-card-padding, var(--mosaic-spacing-lg));
+  border-radius: var(--mosaic-radius-md);
+  padding: var(--mosaic-card-padding, var(--mosaic-spacing-md));
   box-shadow: var(--mosaic-card-shadow, var(--mosaic-shadow-sm));
   display: flex;
   flex-direction: column;
@@ -228,23 +228,23 @@ export const baseStyles = `
   display: flex;
   align-items: flex-start;
   gap: var(--mosaic-spacing-sm);
-  padding-block: calc(var(--mosaic-spacing-sm) + 0.125rem);
-  padding-inline: var(--mosaic-spacing-md);
-  padding-inline-start: calc(var(--mosaic-spacing-md) + 0.25rem);
+  padding-block: var(--mosaic-spacing-sm);
+  padding-inline: calc(var(--mosaic-spacing-md) - 0.125rem);
+  padding-inline-start: calc(var(--mosaic-spacing-md) + 0.125rem);
   background-color: var(--mosaic-alert-bg, var(--mosaic-color-surface));
   border: var(--mosaic-border-width) solid var(--mosaic-alert-border, var(--mosaic-color-border));
-  border-radius: var(--mosaic-radius-md);
+  border-radius: var(--mosaic-radius-sm);
   color: var(--mosaic-alert-fg, var(--mosaic-color-text));
-  box-shadow: var(--mosaic-alert-shadow, var(--mosaic-shadow-sm));
+  box-shadow: var(--mosaic-alert-shadow, none);
 }
 
 .mosaic-alert::before {
   content: "";
   position: absolute;
-  inset-block: var(--mosaic-spacing-sm);
-  inset-inline-start: var(--mosaic-spacing-sm);
-  width: 0.25rem;
-  border-radius: 999px;
+  inset-block: calc(var(--mosaic-spacing-sm) / 1.5);
+  inset-inline-start: calc(var(--mosaic-spacing-sm) - 0.125rem);
+  width: 0.1875rem;
+  border-radius: var(--mosaic-radius-sm);
   background-color: var(--mosaic-alert-accent, var(--mosaic-color-primary));
 }
 
@@ -330,8 +330,8 @@ export const baseStyles = `
   font-family: var(--mosaic-font-family-mono);
   font-size: var(--mosaic-text-size-sm);
   background: var(--mosaic-color-surface-hover);
-  padding: 0.125rem 0.25rem;
-  border-radius: var(--mosaic-radius-sm);
+  padding: 0.125rem 0.375rem;
+  border-radius: calc(var(--mosaic-radius-sm) * 0.75);
 }
 
 .mosaic-text[data-variant="headline"] {
@@ -380,8 +380,8 @@ export const baseStyles = `
 .mosaic-input {
   width: 100%;
   font: inherit;
-  padding-block: var(--mosaic-input-padding-y, calc(var(--mosaic-spacing-sm) - 0.25rem));
-  padding-inline: var(--mosaic-input-padding-x, calc(var(--mosaic-spacing-md) - 0.375rem));
+  padding-block: var(--mosaic-input-padding-y, 0.5rem);
+  padding-inline: var(--mosaic-input-padding-x, 0.75rem);
   border-radius: var(--mosaic-radius-sm);
   border: var(--mosaic-border-width) solid var(--mosaic-color-border);
   background-color: var(--mosaic-color-surface);
@@ -389,7 +389,6 @@ export const baseStyles = `
   font-size: var(--mosaic-input-font-size, var(--mosaic-text-size-md));
   line-height: var(--mosaic-line-height-normal);
   transition: border-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
-    box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
   box-shadow: none;
 }
@@ -420,8 +419,8 @@ export const baseStyles = `
   width: 100%;
   min-height: 6rem;
   font: inherit;
-  padding-block: var(--mosaic-textarea-padding-y, calc(var(--mosaic-spacing-sm) - 0.25rem));
-  padding-inline: var(--mosaic-textarea-padding-x, calc(var(--mosaic-spacing-md) - 0.375rem));
+  padding-block: var(--mosaic-textarea-padding-y, 0.5rem);
+  padding-inline: var(--mosaic-textarea-padding-x, 0.75rem);
   border-radius: var(--mosaic-radius-sm);
   border: var(--mosaic-border-width) solid var(--mosaic-color-border);
   background-color: var(--mosaic-color-surface);
@@ -430,7 +429,6 @@ export const baseStyles = `
   line-height: var(--mosaic-line-height-normal);
   resize: vertical;
   transition: border-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
-    box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
   box-shadow: none;
 }
@@ -460,10 +458,10 @@ export const baseStyles = `
 .mosaic-select {
   width: 100%;
   font: inherit;
-  padding-block: var(--mosaic-select-padding-y, var(--mosaic-spacing-sm));
-  padding-inline: var(--mosaic-select-padding-x, var(--mosaic-spacing-md));
-  padding-inline-end: calc(var(--mosaic-select-padding-x, var(--mosaic-spacing-md)) + 1.75rem);
-  border-radius: var(--mosaic-radius-md);
+  padding-block: var(--mosaic-select-padding-y, 0.5rem);
+  padding-inline: var(--mosaic-select-padding-x, 0.75rem);
+  padding-inline-end: calc(var(--mosaic-select-padding-x, 0.75rem) + 1.5rem);
+  border-radius: var(--mosaic-radius-sm);
   border: var(--mosaic-border-width) solid var(--mosaic-color-border);
   background-color: var(--mosaic-color-surface);
   color: var(--mosaic-color-text);
@@ -472,11 +470,10 @@ export const baseStyles = `
   appearance: none;
   background-image: linear-gradient(45deg, transparent 50%, var(--mosaic-color-text-muted) 50%),
     linear-gradient(135deg, var(--mosaic-color-text-muted) 50%, transparent 50%);
-  background-position: calc(100% - 1.15rem) 52%, calc(100% - 0.65rem) 52%;
+  background-position: calc(100% - 1.35rem) 52%, calc(100% - 0.85rem) 52%;
   background-size: 0.45rem 0.45rem;
   background-repeat: no-repeat;
   transition: border-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
-    box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
   cursor: pointer;
   box-shadow: none;
@@ -542,19 +539,19 @@ export const baseStyles = `
 .mosaic-field[data-invalid="true"] .mosaic-input,
 .mosaic-input[data-invalid="true"] {
   border-color: var(--mosaic-color-danger);
-  box-shadow: 0 0 0 1px var(--mosaic-color-danger);
+  box-shadow: none;
 }
 
 .mosaic-field[data-invalid="true"] .mosaic-textarea,
 .mosaic-textarea[data-invalid="true"] {
   border-color: var(--mosaic-color-danger);
-  box-shadow: 0 0 0 1px var(--mosaic-color-danger);
+  box-shadow: none;
 }
 
 .mosaic-field[data-invalid="true"] .mosaic-select,
 .mosaic-select[data-invalid="true"] {
   border-color: var(--mosaic-color-danger);
-  box-shadow: 0 0 0 1px var(--mosaic-color-danger);
+  box-shadow: none;
 }
 
 .mosaic-visually-hidden {
@@ -576,17 +573,18 @@ export const baseStyles = `
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--mosaic-spacing-lg);
-  background-color: rgba(15, 23, 42, 0.35);
-  backdrop-filter: blur(8px);
+  padding: calc(var(--mosaic-spacing-lg) - 0.25rem);
+  background-color: rgba(15, 23, 42, 0.28);
+  backdrop-filter: blur(4px);
 }
 
 [data-mosaic-theme="dark"] .mosaic-overlay {
-  background-color: rgba(15, 23, 42, 0.6);
+  background-color: rgba(9, 14, 32, 0.55);
 }
 
 [data-mosaic-reduced-motion="true"] .mosaic-overlay {
   backdrop-filter: none;
+  background-color: rgba(15, 23, 42, 0.38);
 }
 
 .mosaic-overlay[data-variant="sheet"] {
@@ -610,12 +608,12 @@ export const baseStyles = `
 .mosaic-dialog {
   background-color: var(--mosaic-color-surface);
   color: var(--mosaic-color-text);
-  border-radius: var(--mosaic-radius-lg);
+  border-radius: var(--mosaic-radius-md);
   border: var(--mosaic-border-width) solid var(--mosaic-color-border);
-  box-shadow: var(--mosaic-shadow-lg);
-  min-width: min(32rem, calc(100vw - 4rem));
-  max-width: calc(100vw - 4rem);
-  max-height: calc(100vh - 4rem);
+  box-shadow: var(--mosaic-shadow-md);
+  min-width: min(30rem, calc(100vw - 3rem));
+  max-width: calc(100vw - 3rem);
+  max-height: calc(100vh - 3rem);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -623,15 +621,15 @@ export const baseStyles = `
 }
 
 .mosaic-dialog[data-size="sm"] {
-  min-width: min(24rem, calc(100vw - 4rem));
+  min-width: min(22rem, calc(100vw - 3rem));
 }
 
 .mosaic-dialog[data-size="lg"] {
-  min-width: min(40rem, calc(100vw - 4rem));
+  min-width: min(38rem, calc(100vw - 3rem));
 }
 
 .mosaic-dialog[data-size="xl"] {
-  min-width: min(48rem, calc(100vw - 4rem));
+  min-width: min(46rem, calc(100vw - 3rem));
 }
 
 .mosaic-dialog[data-size="full"] {
@@ -744,7 +742,7 @@ export const baseStyles = `
 
 .mosaic-command__shortcut {
   background-color: var(--mosaic-color-surface-hover);
-  border-radius: var(--mosaic-radius-sm);
+  border-radius: calc(var(--mosaic-radius-sm) * 0.75);
   padding: 0.125rem 0.5rem;
   font-size: var(--mosaic-text-size-sm);
   color: var(--mosaic-color-text-muted);
@@ -754,10 +752,10 @@ export const baseStyles = `
   width: 100%;
   border: none;
   outline: none;
-  background: var(--mosaic-color-surface-hover);
+  background: var(--mosaic-color-surface);
   color: var(--mosaic-color-text);
-  padding: var(--mosaic-spacing-sm);
-  border-radius: var(--mosaic-radius-md);
+  padding: calc(var(--mosaic-spacing-sm) - 0.125rem);
+  border-radius: var(--mosaic-radius-sm);
   font-size: var(--mosaic-text-size-md);
 }
 
@@ -789,7 +787,7 @@ export const baseStyles = `
   justify-content: space-between;
   align-items: center;
   padding: var(--mosaic-spacing-sm) var(--mosaic-spacing-md);
-  border-radius: var(--mosaic-radius-md);
+  border-radius: var(--mosaic-radius-sm);
   cursor: pointer;
   color: var(--mosaic-color-text);
 }
@@ -826,9 +824,9 @@ export const baseStyles = `
   background-color: var(--mosaic-color-text);
   color: var(--mosaic-color-inverted);
   padding: 0.35rem 0.55rem;
-  border-radius: var(--mosaic-radius-sm);
+  border-radius: calc(var(--mosaic-radius-sm) * 0.8);
   font-size: var(--mosaic-text-size-sm);
-  box-shadow: var(--mosaic-shadow-sm);
+  box-shadow: none;
   pointer-events: none;
   display: inline-flex;
   gap: var(--mosaic-spacing-xs);
@@ -847,34 +845,34 @@ export const baseStyles = `
 }
 
 .mosaic-tooltip[data-side="top"]::after {
-  bottom: -6px;
+  bottom: -4px;
   left: 50%;
   transform: translateX(-50%);
-  border-width: 6px 6px 0 6px;
+  border-width: 4px 4px 0 4px;
   border-color: var(--mosaic-color-text) transparent transparent transparent;
 }
 
 .mosaic-tooltip[data-side="bottom"]::after {
-  top: -6px;
+  top: -4px;
   left: 50%;
   transform: translateX(-50%);
-  border-width: 0 6px 6px 6px;
+  border-width: 0 4px 4px 4px;
   border-color: transparent transparent var(--mosaic-color-text) transparent;
 }
 
 .mosaic-tooltip[data-side="left"]::after {
-  right: -6px;
+  right: -4px;
   top: 50%;
   transform: translateY(-50%);
-  border-width: 6px 0 6px 6px;
+  border-width: 4px 0 4px 4px;
   border-color: transparent transparent transparent var(--mosaic-color-text);
 }
 
 .mosaic-tooltip[data-side="right"]::after {
-  left: -6px;
+  left: -4px;
   top: 50%;
   transform: translateY(-50%);
-  border-width: 6px 6px 6px 0;
+  border-width: 4px 4px 4px 0;
   border-color: transparent var(--mosaic-color-text) transparent transparent;
 }
 
@@ -896,32 +894,37 @@ export const baseStyles = `
 }
 
 .mosaic-switch__track {
-  width: 2.75rem;
-  height: 1.5rem;
-  background-color: var(--mosaic-color-surface-hover);
-  border-radius: 999px;
+  width: 2.5rem;
+  height: 1.25rem;
+  background-color: var(--mosaic-color-surface);
+  border: var(--mosaic-border-width) solid var(--mosaic-color-border);
+  border-radius: var(--mosaic-radius-md);
   position: relative;
-  transition: background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+  transition: background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
+    border-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
 }
 
 .mosaic-switch__thumb {
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 1.1rem;
-  height: 1.1rem;
+  top: 0.125rem;
+  left: 0.125rem;
+  width: 1rem;
+  height: 1rem;
   background-color: var(--mosaic-color-inverted);
-  border-radius: 50%;
-  box-shadow: var(--mosaic-shadow-sm);
-  transition: transform var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+  border-radius: var(--mosaic-radius-sm);
+  box-shadow: none;
+  transition: transform var(--mosaic-motion-duration) var(--mosaic-motion-ease),
+    background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
 }
 
 .mosaic-switch__input:checked + .mosaic-switch__track {
-  background-color: var(--mosaic-color-primary);
+  background-color: var(--mosaic-color-primary-soft);
+  border-color: var(--mosaic-color-primary);
 }
 
 .mosaic-switch__input:checked + .mosaic-switch__track .mosaic-switch__thumb {
   transform: translateX(1.25rem);
+  background-color: var(--mosaic-color-primary);
 }
 
 .mosaic-switch__input:focus-visible + .mosaic-switch__track {
@@ -985,13 +988,13 @@ export const baseStyles = `
 
 .mosaic-checkbox__input:checked + .mosaic-checkbox__indicator::after {
   content: "✔";
-  font-size: 0.75rem;
+  font-size: 0.65rem;
 }
 
 .mosaic-checkbox__input:indeterminate + .mosaic-checkbox__indicator::after {
   content: "";
-  width: 0.6rem;
-  height: 0.15rem;
+  width: 0.55rem;
+  height: 0.125rem;
   background-color: currentColor;
   border-radius: var(--mosaic-radius-sm);
 }
@@ -1049,7 +1052,7 @@ export const baseStyles = `
 .mosaic-radio__indicator {
   width: 100%;
   height: 100%;
-  border-radius: 999px;
+  border-radius: 50%;
   border: var(--mosaic-border-width) solid var(--mosaic-color-border);
   background: var(--mosaic-color-surface);
   display: flex;
@@ -1061,8 +1064,8 @@ export const baseStyles = `
 
 .mosaic-radio__indicator::after {
   content: "";
-  width: 0.55rem;
-  height: 0.55rem;
+  width: 0.45rem;
+  height: 0.45rem;
   border-radius: 50%;
   background-color: transparent;
   transition: background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
@@ -1194,15 +1197,16 @@ export const baseStyles = `
 
 .mosaic-progress__track {
   width: 100%;
-  height: 0.5rem;
-  border-radius: 999px;
+  height: 0.375rem;
+  border-radius: calc(var(--mosaic-radius-sm) * 0.9);
   background-color: var(--mosaic-color-surface-hover);
   overflow: hidden;
 }
 
 .mosaic-progress__indicator {
   height: 100%;
-  background: linear-gradient(90deg, var(--mosaic-color-primary) 0%, var(--mosaic-color-primary-border) 100%);
+  background-color: var(--mosaic-color-primary);
+  border-radius: inherit;
   transition: width var(--mosaic-motion-duration) var(--mosaic-motion-ease);
 }
 
@@ -1234,7 +1238,7 @@ export const baseStyles = `
   width: var(--mosaic-spinner-size, 1.5rem);
   height: var(--mosaic-spinner-size, 1.5rem);
   border-radius: 50%;
-  border: 3px solid var(--mosaic-spinner-track, var(--mosaic-color-border));
+  border: 2px solid var(--mosaic-spinner-track, var(--mosaic-color-border));
   border-top-color: var(--mosaic-spinner-color, var(--mosaic-color-primary));
   border-right-color: var(--mosaic-spinner-color, var(--mosaic-color-primary));
   box-sizing: border-box;
@@ -1250,7 +1254,7 @@ export const baseStyles = `
   overflow: hidden;
   display: block;
   background-color: var(--mosaic-skeleton-base, var(--mosaic-color-surface-hover));
-  border-radius: var(--mosaic-skeleton-radius, var(--mosaic-radius-md));
+  border-radius: var(--mosaic-skeleton-radius, var(--mosaic-radius-sm));
   min-height: 0.5rem;
 }
 
@@ -1269,7 +1273,7 @@ export const baseStyles = `
 }
 
 .mosaic-skeleton[data-variant="text"] {
-  border-radius: var(--mosaic-radius-sm);
+  border-radius: calc(var(--mosaic-radius-sm) * 0.6);
   height: 1em;
   width: 100%;
 }
