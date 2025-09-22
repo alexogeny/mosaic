@@ -22,6 +22,13 @@ interface CommandPaletteContextValue {
 
 const CommandPaletteContext = createContext<CommandPaletteContextValue | undefined>(undefined);
 
+interface CommandPaletteHookResult extends CommandPaletteContextValue {
+  openPalette: () => void;
+  closePalette: () => void;
+  togglePalette: () => void;
+  isPaletteOpen: boolean;
+}
+
 export interface CommandPaletteProps extends PropsWithChildren {
   placeholder?: string;
   emptyMessage?: string;
@@ -39,7 +46,7 @@ export const CommandPalette = ({
   const { shortcuts, formatShortcut, setPaletteApi } = useShortcuts();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeCommandId, setActiveCommandId] = useState<string | null>(null);
   const inputId = useId();
   const listboxId = useId();
 
@@ -110,13 +117,9 @@ export const CommandPalette = ({
   useEffect(() => {
     if (!open) {
       setQuery("");
-      setActiveIndex(0);
+      setActiveCommandId(null);
     }
   }, [open]);
-
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [query, limited.length]);
 
   const indexMap = useMemo(() => {
     const map = new Map<string, number>();
@@ -127,14 +130,25 @@ export const CommandPalette = ({
   }, [flat]);
 
   useEffect(() => {
-    setActiveIndex((index) => {
-      if (flat.length === 0) return 0;
-      return Math.min(index, flat.length - 1);
+    if (!open) return;
+    if (flat.length === 0) {
+      setActiveCommandId(null);
+      return;
+    }
+    setActiveCommandId((currentId) => {
+      if (currentId && indexMap.has(currentId)) {
+        return currentId;
+      }
+      const first = flat[0];
+      return first ? first.command.id : null;
     });
-  }, [flat.length]);
+  }, [flat, indexMap, open]);
+
+  const activeIndex = activeCommandId ? indexMap.get(activeCommandId) ?? -1 : -1;
 
   useEffect(() => {
     if (!open) return;
+    if (activeIndex < 0) return;
     const active = flat[activeIndex];
     if (!active) return;
     const node = document.getElementById(`mosaic-command-${active.command.id}`);
@@ -164,31 +178,52 @@ export const CommandPalette = ({
     [],
   );
 
+  const moveActive = useCallback(
+    (direction: 1 | -1) => {
+      if (flat.length === 0) return;
+      setActiveCommandId((currentId) => {
+        const fallbackIndex = direction > 0 ? -1 : flat.length;
+        const currentIndex = currentId ? indexMap.get(currentId) ?? fallbackIndex : fallbackIndex;
+        const nextIndex = Math.min(Math.max(currentIndex + direction, 0), flat.length - 1);
+        const next = flat[nextIndex];
+        return next ? next.command.id : null;
+      });
+    },
+    [flat, indexMap],
+  );
+
   const handleKeyDown = useCallback(
     (event: ReactKeyboardEvent<HTMLInputElement>) => {
       if (event.key === "ArrowDown") {
         event.preventDefault();
-        setActiveIndex((index) => Math.min(index + 1, flat.length - 1));
+        moveActive(1);
       } else if (event.key === "ArrowUp") {
         event.preventDefault();
-        setActiveIndex((index) => Math.max(index - 1, 0));
+        moveActive(-1);
       } else if (event.key === "Home") {
         event.preventDefault();
-        setActiveIndex(0);
+        const first = flat[0];
+        setActiveCommandId(first ? first.command.id : null);
       } else if (event.key === "End") {
         event.preventDefault();
-        setActiveIndex(Math.max(flat.length - 1, 0));
+        const last = flat[flat.length - 1];
+        setActiveCommandId(last ? last.command.id : null);
       } else if (event.key === "Enter") {
         event.preventDefault();
-        const active = flat[activeIndex];
-        if (active) {
-          handleSelect(active.command);
+        const id = activeCommandId ?? flat[0]?.command.id;
+        if (!id) return;
+        const index = indexMap.get(id);
+        if (typeof index === "number") {
+          const active = flat[index];
+          if (active) {
+            handleSelect(active.command);
+          }
         }
       } else if (event.key === "Escape") {
         setOpen(false);
       }
     },
-    [activeIndex, flat, handleSelect],
+    [activeCommandId, flat, handleSelect, indexMap, moveActive],
   );
 
   const contextValue = useMemo<CommandPaletteContextValue>(
@@ -201,7 +236,7 @@ export const CommandPalette = ({
     [open],
   );
 
-  const activeId = flat[activeIndex]?.command.id;
+  const activeId = activeIndex >= 0 ? activeCommandId ?? undefined : undefined;
 
   return (
     <CommandPaletteContext.Provider value={contextValue}>
@@ -246,8 +281,7 @@ export const CommandPalette = ({
                 <div key={group.section} className="mosaic-command__section" role="presentation">
                   <div className="mosaic-command__section-label">{group.section}</div>
                   {group.items.map((command) => {
-                    const index = indexMap.get(command.id) ?? 0;
-                    const isActive = index === activeIndex;
+                    const isActive = command.id === activeId;
                     const shortcut = command.displayCombo ?? null;
                     return (
                       <div
@@ -258,7 +292,7 @@ export const CommandPalette = ({
                         className={cx("mosaic-command__option", {
                           "mosaic-command__option--active": isActive,
                         })}
-                        onMouseEnter={() => setActiveIndex(index)}
+                        onMouseEnter={() => setActiveCommandId(command.id)}
                         onMouseDown={(event) => event.preventDefault()}
                         onClick={() => handleSelect(command)}
                       >
@@ -282,10 +316,19 @@ export const CommandPalette = ({
   );
 };
 
-export const useCommandPalette = () => {
+export const useCommandPalette = (): CommandPaletteHookResult => {
   const context = useContext(CommandPaletteContext);
   if (!context) {
     throw new Error("useCommandPalette must be used within CommandPalette");
   }
-  return context;
+  return useMemo(
+    () => ({
+      ...context,
+      openPalette: context.open,
+      closePalette: context.close,
+      togglePalette: context.toggle,
+      isPaletteOpen: context.isOpen,
+    }),
+    [context],
+  );
 };
