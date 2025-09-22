@@ -12,12 +12,17 @@ import {
   Dialog,
   Field,
   Input,
+  Radio,
+  RadioGroup,
   Pagination,
   Progress,
   Sheet,
+  Select,
+  Slider,
   Stack,
   Switch,
   Text,
+  Textarea,
   ThemePanel,
   Tooltip,
   useCommand,
@@ -138,7 +143,11 @@ const App = () => {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [activePage, setActivePage] = useState(1);
   const [framework, setFramework] = useState<string | null>(languageOptions[0]?.value ?? null);
+  const [priority, setPriority] = useState("normal");
+  const [cadence, setCadence] = useState("daily");
+  const [notes, setNotes] = useState("");
   const [progress, setProgress] = useState(45);
+  const [volume, setVolume] = useState(60);
   const themePanelRef = useRef<HTMLDivElement | null>(null);
   const { toast } = useToast();
   const { togglePalette } = useCommandPalette();
@@ -232,8 +241,55 @@ const App = () => {
                 <Field label="Project start">
                   <DatePicker />
                 </Field>
+                <Field label="Priority">
+                  <Select value={priority} onChange={(event) => setPriority(event.target.value)}>
+                    <option value="low">Low</option>
+                    <option value="normal">Normal</option>
+                    <option value="high">High</option>
+                  </Select>
+                </Field>
               </Stack>
               <Stack direction="row" gap="md" wrap>
+                <Field label="Notes" description="Share context with collaborators before requests ship.">
+                  <Textarea
+                    rows={4}
+                    placeholder="Provide relevant context or requirements"
+                    value={notes}
+                    onChange={(event) => setNotes(event.target.value)}
+                  />
+                </Field>
+                <Field
+                  label="Notification cadence"
+                  description="Choose how often Mosaic sends release updates to stakeholders."
+                >
+                  <RadioGroup value={cadence} onValueChange={setCadence}>
+                    <Radio value="instant" description="Notify everyone the moment changes land.">
+                      Instant
+                    </Radio>
+                    <Radio value="daily" description="Bundle changes into a morning digest.">
+                      Daily
+                    </Radio>
+                    <Radio value="weekly" description="Share a curated summary every Monday.">
+                      Weekly
+                    </Radio>
+                  </RadioGroup>
+                </Field>
+              </Stack>
+              <Stack direction="row" gap="md" wrap align="center">
+                <Field
+                  label="Signal strength"
+                  description="Control how prominent release updates should feel."
+                  hint={`${volume}% emphasis`}
+                >
+                  <Slider
+                    value={volume}
+                    min={0}
+                    max={100}
+                    step={5}
+                    onValueChange={(value) => setVolume(value)}
+                    aria-valuetext={`${volume}% emphasis`}
+                  />
+                </Field>
                 <Switch>Share updates automatically</Switch>
                 <Checkbox description="Invite this teammate to beta features" defaultChecked>
                   Early access

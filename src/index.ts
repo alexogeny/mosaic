@@ -17,10 +17,14 @@ export { DatePicker } from "./components/DatePicker";
 export { Dialog } from "./components/Dialog";
 export { Pagination } from "./components/Pagination";
 export { Progress } from "./components/Progress";
+export { RadioGroup, Radio } from "./components/RadioGroup";
 export { Sheet } from "./components/Sheet";
+export { Select } from "./components/Select";
 export { Switch } from "./components/Switch";
+export { Slider } from "./components/Slider";
 export { ToastProvider, useToast } from "./components/Toast";
 export { Tooltip } from "./components/Tooltip";
+export { Textarea } from "./components/Textarea";
 
 export {
   ThemeProvider,

@@ -252,6 +252,74 @@ export const baseStyles = `
   cursor: not-allowed;
 }
 
+.mosaic-textarea {
+  width: 100%;
+  min-height: 6rem;
+  font: inherit;
+  padding-block: var(--mosaic-textarea-padding-y, var(--mosaic-spacing-sm));
+  padding-inline: var(--mosaic-textarea-padding-x, var(--mosaic-spacing-md));
+  border-radius: var(--mosaic-radius-md);
+  border: var(--mosaic-border-width) solid var(--mosaic-color-border);
+  background-color: var(--mosaic-color-surface);
+  color: var(--mosaic-color-text);
+  font-size: var(--mosaic-textarea-font-size, var(--mosaic-text-size-md));
+  line-height: var(--mosaic-line-height-normal);
+  resize: vertical;
+  transition: border-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
+    box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
+    background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+}
+
+.mosaic-textarea::placeholder {
+  color: var(--mosaic-color-text-muted);
+}
+
+.mosaic-textarea:focus-visible {
+  outline: none;
+  border-color: var(--mosaic-color-ring);
+  box-shadow: var(--mosaic-focus-ring);
+}
+
+.mosaic-textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mosaic-select {
+  width: 100%;
+  font: inherit;
+  padding-block: var(--mosaic-select-padding-y, var(--mosaic-spacing-sm));
+  padding-inline: var(--mosaic-select-padding-x, var(--mosaic-spacing-md));
+  padding-inline-end: calc(var(--mosaic-select-padding-x, var(--mosaic-spacing-md)) + 1.75rem);
+  border-radius: var(--mosaic-radius-md);
+  border: var(--mosaic-border-width) solid var(--mosaic-color-border);
+  background-color: var(--mosaic-color-surface);
+  color: var(--mosaic-color-text);
+  font-size: var(--mosaic-select-font-size, var(--mosaic-text-size-md));
+  line-height: var(--mosaic-line-height-normal);
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--mosaic-color-text-muted) 50%),
+    linear-gradient(135deg, var(--mosaic-color-text-muted) 50%, transparent 50%);
+  background-position: calc(100% - 1.15rem) 52%, calc(100% - 0.65rem) 52%;
+  background-size: 0.45rem 0.45rem;
+  background-repeat: no-repeat;
+  transition: border-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
+    box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
+    background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+  cursor: pointer;
+}
+
+.mosaic-select:focus-visible {
+  outline: none;
+  border-color: var(--mosaic-color-ring);
+  box-shadow: var(--mosaic-focus-ring);
+}
+
+.mosaic-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .mosaic-field {
   display: flex;
   flex-direction: column;
@@ -291,7 +359,20 @@ export const baseStyles = `
   color: var(--mosaic-color-danger);
 }
 
-.mosaic-field[data-invalid="true"] .mosaic-input {
+.mosaic-field[data-invalid="true"] .mosaic-input,
+.mosaic-input[data-invalid="true"] {
+  border-color: var(--mosaic-color-danger);
+  box-shadow: 0 0 0 1px var(--mosaic-color-danger);
+}
+
+.mosaic-field[data-invalid="true"] .mosaic-textarea,
+.mosaic-textarea[data-invalid="true"] {
+  border-color: var(--mosaic-color-danger);
+  box-shadow: 0 0 0 1px var(--mosaic-color-danger);
+}
+
+.mosaic-field[data-invalid="true"] .mosaic-select,
+.mosaic-select[data-invalid="true"] {
   border-color: var(--mosaic-color-danger);
   box-shadow: 0 0 0 1px var(--mosaic-color-danger);
 }
@@ -678,7 +759,8 @@ export const baseStyles = `
 }
 
 .mosaic-switch__description,
-.mosaic-checkbox__description {
+.mosaic-checkbox__description,
+.mosaic-radio__description {
   font-size: var(--mosaic-text-size-sm);
   color: var(--mosaic-color-text-muted);
 }
@@ -740,6 +822,118 @@ export const baseStyles = `
 
 .mosaic-checkbox__label {
   font-weight: 500;
+}
+
+.mosaic-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mosaic-spacing-sm);
+}
+
+.mosaic-radio-group[data-orientation="horizontal"] {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--mosaic-spacing-md);
+}
+
+.mosaic-radio {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--mosaic-spacing-sm);
+  cursor: pointer;
+  color: var(--mosaic-color-text);
+}
+
+.mosaic-radio[data-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.mosaic-radio__control {
+  position: relative;
+  width: 1.2rem;
+  height: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mosaic-radio__input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+}
+
+.mosaic-radio__indicator {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  border: var(--mosaic-border-width) solid var(--mosaic-color-border);
+  background: var(--mosaic-color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
+    border-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+}
+
+.mosaic-radio__indicator::after {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+}
+
+.mosaic-radio__input:checked + .mosaic-radio__indicator {
+  border-color: var(--mosaic-color-primary);
+  background-color: var(--mosaic-color-primary-soft);
+}
+
+.mosaic-radio__input:checked + .mosaic-radio__indicator::after {
+  background-color: var(--mosaic-color-primary);
+}
+
+.mosaic-radio__input:focus-visible + .mosaic-radio__indicator {
+  box-shadow: var(--mosaic-focus-ring);
+}
+
+.mosaic-radio__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.mosaic-radio__label {
+  font-weight: 500;
+}
+
+.mosaic-radio-group[data-invalid="true"] .mosaic-radio__indicator,
+.mosaic-field[data-invalid="true"] .mosaic-radio__indicator,
+.mosaic-radio[data-invalid="true"] .mosaic-radio__indicator {
+  border-color: var(--mosaic-color-danger);
+}
+
+.mosaic-radio-group[data-invalid="true"] .mosaic-radio__input:checked + .mosaic-radio__indicator,
+.mosaic-field[data-invalid="true"] .mosaic-radio__input:checked + .mosaic-radio__indicator,
+.mosaic-radio[data-invalid="true"] .mosaic-radio__input:checked + .mosaic-radio__indicator {
+  background-color: var(--mosaic-color-danger);
+  border-color: var(--mosaic-color-danger);
+}
+
+.mosaic-radio-group[data-invalid="true"] .mosaic-radio__input:checked + .mosaic-radio__indicator::after,
+.mosaic-field[data-invalid="true"] .mosaic-radio__input:checked + .mosaic-radio__indicator::after,
+.mosaic-radio[data-invalid="true"] .mosaic-radio__input:checked + .mosaic-radio__indicator::after {
+  background-color: var(--mosaic-color-danger);
+}
+
+.mosaic-radio-group[data-invalid="true"] .mosaic-radio__input:focus-visible + .mosaic-radio__indicator,
+.mosaic-field[data-invalid="true"] .mosaic-radio__input:focus-visible + .mosaic-radio__indicator,
+.mosaic-radio[data-invalid="true"] .mosaic-radio__input:focus-visible + .mosaic-radio__indicator {
+  box-shadow: 0 0 0 1px var(--mosaic-color-inverted), 0 0 0 4px var(--mosaic-color-danger);
 }
 
 .mosaic-badge {
@@ -845,8 +1039,106 @@ export const baseStyles = `
     transform: translateX(20%);
   }
   100% {
-    transform: translateX(120%);
+    transform: translateX(100%);
   }
+}
+
+.mosaic-slider {
+  width: 100%;
+  display: block;
+  height: 1.25rem;
+  margin: 0;
+  background: transparent;
+  accent-color: var(--mosaic-color-primary);
+  cursor: pointer;
+  touch-action: pan-y;
+}
+
+.mosaic-slider:focus-visible {
+  outline: none;
+}
+
+.mosaic-slider:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mosaic-slider::-webkit-slider-runnable-track {
+  height: 0.4rem;
+  border-radius: 999px;
+  background-color: var(--mosaic-color-border);
+  transition: background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+}
+
+.mosaic-slider::-moz-range-track {
+  height: 0.4rem;
+  border-radius: 999px;
+  background-color: var(--mosaic-color-border);
+  transition: background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+}
+
+.mosaic-slider::-moz-range-progress {
+  height: 0.4rem;
+  border-radius: 999px;
+  background-color: var(--mosaic-color-primary);
+}
+
+.mosaic-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background-color: var(--mosaic-color-primary);
+  border: var(--mosaic-border-width) solid var(--mosaic-color-primary);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.2);
+  transition: box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
+    background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+  margin-top: -0.35rem;
+}
+
+.mosaic-slider::-moz-range-thumb {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background-color: var(--mosaic-color-primary);
+  border: var(--mosaic-border-width) solid var(--mosaic-color-primary);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.2);
+  transition: box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
+    background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+}
+
+.mosaic-slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: var(--mosaic-focus-ring), 0 2px 6px rgba(15, 23, 42, 0.2);
+}
+
+.mosaic-slider:focus-visible::-moz-range-thumb {
+  box-shadow: var(--mosaic-focus-ring), 0 2px 6px rgba(15, 23, 42, 0.2);
+}
+
+.mosaic-slider[data-invalid="true"],
+.mosaic-field[data-invalid="true"] .mosaic-slider {
+  accent-color: var(--mosaic-color-danger);
+}
+
+.mosaic-slider[data-invalid="true"]::-webkit-slider-thumb,
+.mosaic-field[data-invalid="true"] .mosaic-slider::-webkit-slider-thumb,
+.mosaic-slider[data-invalid="true"]::-moz-range-thumb,
+.mosaic-field[data-invalid="true"] .mosaic-slider::-moz-range-thumb {
+  background-color: var(--mosaic-color-danger);
+  border-color: var(--mosaic-color-danger);
+}
+
+.mosaic-slider[data-invalid="true"]:focus-visible::-webkit-slider-thumb,
+.mosaic-field[data-invalid="true"] .mosaic-slider:focus-visible::-webkit-slider-thumb,
+.mosaic-slider[data-invalid="true"]:focus-visible::-moz-range-thumb,
+.mosaic-field[data-invalid="true"] .mosaic-slider:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 1px var(--mosaic-color-inverted), 0 0 0 4px var(--mosaic-color-danger),
+    0 2px 6px rgba(15, 23, 42, 0.2);
+}
+
+.mosaic-slider[data-invalid="true"]::-moz-range-progress,
+.mosaic-field[data-invalid="true"] .mosaic-slider::-moz-range-progress {
+  background-color: var(--mosaic-color-danger);
 }
 
 .mosaic-date-picker {
