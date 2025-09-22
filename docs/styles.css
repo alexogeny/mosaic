@@ -10,28 +10,28 @@ body,
 
 :root {
   --app-shell-max-width: min(1280px, 100%);
-  --app-panel-radius: clamp(1.25rem, 2.5vw, 1.85rem);
-  --app-shell-shadow: 0 45px 90px -50px rgba(15, 23, 42, 0.28);
-  --app-panel-shadow: 0 32px 70px -45px rgba(15, 23, 42, 0.24);
-  --app-panel-border: rgba(148, 163, 184, 0.28);
+  --app-panel-radius: clamp(1.75rem, 3vw, 2.35rem);
+  --app-shell-shadow: 0 56px 140px -72px rgba(15, 23, 42, 0.32);
+  --app-panel-shadow: 0 38px 96px -58px rgba(15, 23, 42, 0.26);
+  --app-panel-border: rgba(148, 163, 184, 0.24);
   --app-panel-background: var(--mosaic-color-surface);
 }
 
 :root[data-mosaic-theme="dark"] {
-  --app-shell-shadow: 0 55px 110px -55px rgba(2, 6, 23, 0.7);
-  --app-panel-shadow: 0 40px 80px -50px rgba(2, 6, 23, 0.75);
-  --app-panel-border: rgba(30, 41, 59, 0.45);
+  --app-shell-shadow: 0 60px 150px -70px rgba(2, 6, 23, 0.78);
+  --app-panel-shadow: 0 44px 110px -64px rgba(2, 6, 23, 0.72);
+  --app-panel-border: rgba(37, 48, 68, 0.55);
 }
 
 @supports (color: color-mix(in srgb, black 50%, white)) {
   :root {
-    --app-panel-border: color-mix(in srgb, var(--mosaic-color-border) 55%, transparent);
-    --app-panel-background: color-mix(in srgb, var(--mosaic-color-surface) 92%, transparent);
+    --app-panel-border: color-mix(in srgb, var(--mosaic-color-border) 52%, transparent);
+    --app-panel-background: color-mix(in srgb, var(--mosaic-color-surface) 94%, transparent);
   }
 
   :root[data-mosaic-theme="dark"] {
-    --app-panel-border: color-mix(in srgb, var(--mosaic-color-border) 35%, rgba(2, 6, 23, 0.55));
-    --app-panel-background: color-mix(in srgb, var(--mosaic-color-surface) 86%, rgba(2, 6, 23, 0.55));
+    --app-panel-border: color-mix(in srgb, var(--mosaic-color-border) 48%, rgba(2, 6, 23, 0.55));
+    --app-panel-background: color-mix(in srgb, var(--mosaic-color-surface) 88%, rgba(2, 6, 23, 0.55));
   }
 }
 
@@ -46,16 +46,16 @@ body {
     color 220ms var(--mosaic-motion-ease, cubic-bezier(0.4, 0, 0.2, 1));
   display: flex;
   justify-content: center;
-  padding: clamp(1.5rem, 5vw, 3.5rem);
+  padding: clamp(2rem, 6vw, 4rem);
   overflow-x: hidden;
 }
 
 @supports (color: color-mix(in srgb, black 50%, white)) {
   body {
     background-image:
-      radial-gradient(140% 120% at -10% -20%, color-mix(in srgb, var(--mosaic-color-primary) 18%, transparent), transparent 70%),
-      radial-gradient(120% 120% at 110% -10%, color-mix(in srgb, var(--mosaic-color-success) 14%, transparent), transparent 72%),
-      linear-gradient(180deg, color-mix(in srgb, var(--mosaic-color-background) 70%, transparent) 0%, var(--mosaic-color-background) 100%);
+      radial-gradient(120% 120% at -12% -18%, color-mix(in srgb, var(--mosaic-color-primary) 20%, transparent), transparent 70%),
+      radial-gradient(160% 120% at 108% -12%, color-mix(in srgb, var(--mosaic-color-success) 16%, transparent), transparent 72%),
+      linear-gradient(180deg, color-mix(in srgb, var(--mosaic-color-background) 72%, transparent) 0%, var(--mosaic-color-background) 100%);
     background-attachment: fixed;
   }
 }
@@ -77,14 +77,14 @@ body {
   min-height: calc(100vh - clamp(4rem, 9vw, 7rem));
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
-  gap: clamp(2.5rem, 5vw, 3.75rem);
-  padding: clamp(2rem, 5vw, 3.5rem);
+  gap: clamp(2.75rem, 5.5vw, 4rem);
+  padding: clamp(2.5rem, 6vw, 4rem);
   border-radius: var(--app-panel-radius);
   background: var(--app-panel-background);
   border: 1px solid var(--app-panel-border);
   box-shadow: var(--app-shell-shadow);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 
 @supports not ((backdrop-filter: blur(1px))) {
@@ -99,10 +99,10 @@ body {
   inset: 0;
   border-radius: inherit;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0)),
-    radial-gradient(120% 120% at 14% 0%, rgba(99, 102, 241, 0.25), transparent 72%),
-    radial-gradient(120% 120% at 86% 0%, rgba(16, 185, 129, 0.18), transparent 75%);
-  opacity: 0.55;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0)),
+    radial-gradient(120% 120% at 18% -6%, rgba(99, 102, 241, 0.28), transparent 74%),
+    radial-gradient(120% 120% at 82% -2%, rgba(56, 189, 248, 0.18), transparent 78%);
+  opacity: 0.58;
   pointer-events: none;
   mix-blend-mode: lighten;
   z-index: 0;
@@ -111,14 +111,14 @@ body {
 @supports (color: color-mix(in srgb, black 50%, white)) {
   .app::before {
     background:
-      radial-gradient(120% 120% at 14% 0%, color-mix(in srgb, var(--mosaic-color-primary) 28%, transparent), transparent 72%),
-      radial-gradient(120% 120% at 86% 0%, color-mix(in srgb, var(--mosaic-color-success) 20%, transparent), transparent 75%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0));
+      radial-gradient(120% 120% at 18% -6%, color-mix(in srgb, var(--mosaic-color-primary) 30%, transparent), transparent 74%),
+      radial-gradient(120% 120% at 82% -2%, color-mix(in srgb, var(--mosaic-color-success) 18%, transparent), transparent 78%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0));
   }
 }
 
 [data-mosaic-theme="dark"] .app::before {
-  opacity: 0.4;
+  opacity: 0.45;
   mix-blend-mode: screen;
 }
 

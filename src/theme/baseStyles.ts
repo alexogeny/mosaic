@@ -1,9 +1,12 @@
 export const baseStyles = `
 :root {
-  --mosaic-focus-ring: 0 0 0 1px var(--mosaic-color-inverted), 0 0 0 4px var(--mosaic-color-ring);
+  --mosaic-focus-ring: 0 0 0 1.5px var(--mosaic-color-inverted), 0 0 0 5px var(--mosaic-color-ring);
 }
 
 .mosaic-button {
+  --mosaic-button-shadow: 0 0 0 0 rgba(15, 23, 42, 0);
+  --mosaic-button-shadow-hover: var(--mosaic-button-shadow);
+  --mosaic-button-shadow-active: var(--mosaic-button-shadow);
   appearance: none;
   border: var(--mosaic-border-width) solid var(--mosaic-button-border, transparent);
   border-radius: var(--mosaic-radius-md);
@@ -13,6 +16,7 @@ export const baseStyles = `
   font-weight: 600;
   font-size: var(--mosaic-button-font-size, var(--mosaic-text-size-md));
   line-height: var(--mosaic-line-height-tight);
+  letter-spacing: -0.01em;
   padding-block: var(--mosaic-button-padding-y, var(--mosaic-spacing-sm));
   padding-inline: var(--mosaic-button-padding-x, var(--mosaic-spacing-md));
   display: inline-flex;
@@ -28,6 +32,7 @@ export const baseStyles = `
     box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     transform var(--mosaic-motion-duration) var(--mosaic-motion-ease);
   min-height: calc(2.5rem + var(--mosaic-button-size-adjust, 0));
+  box-shadow: var(--mosaic-button-shadow);
 }
 
 .mosaic-button[data-full-width="true"] {
@@ -36,7 +41,15 @@ export const baseStyles = `
 
 .mosaic-button:focus-visible {
   outline: none;
-  box-shadow: var(--mosaic-focus-ring);
+  box-shadow: var(--mosaic-button-shadow), var(--mosaic-focus-ring);
+}
+
+.mosaic-button:hover:not(:disabled) {
+  box-shadow: var(--mosaic-button-shadow-hover);
+}
+
+.mosaic-button:active:not(:disabled) {
+  box-shadow: var(--mosaic-button-shadow-active);
 }
 
 .mosaic-button[data-variant="solid"]:hover:not(:disabled),
@@ -131,6 +144,8 @@ export const baseStyles = `
 }
 
 .mosaic-card {
+  --mosaic-card-bg-hover: var(--mosaic-color-surface-hover);
+  --mosaic-card-border-hover: var(--mosaic-card-border, var(--mosaic-color-border));
   background-color: var(--mosaic-card-bg, var(--mosaic-color-surface));
   color: var(--mosaic-card-fg, var(--mosaic-color-text));
   border: var(--mosaic-border-width) solid var(--mosaic-card-border, var(--mosaic-color-border));
@@ -140,17 +155,69 @@ export const baseStyles = `
   display: flex;
   flex-direction: column;
   gap: var(--mosaic-spacing-md);
-  transition: box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
+  transition: background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
+    border-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
+    box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     transform var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+}
+
+@supports (color: color-mix(in srgb, black 50%, white)) {
+  .mosaic-card {
+    background: color-mix(
+      in srgb,
+      var(--mosaic-card-bg, var(--mosaic-color-surface)) 94%,
+      transparent
+    );
+    border-color: color-mix(
+      in srgb,
+      var(--mosaic-card-border, var(--mosaic-color-border)) 82%,
+      transparent
+    );
+    --mosaic-card-bg-hover: color-mix(
+      in srgb,
+      var(--mosaic-card-bg, var(--mosaic-color-surface)) 96%,
+      transparent
+    );
+    --mosaic-card-border-hover: color-mix(
+      in srgb,
+      var(--mosaic-card-border, var(--mosaic-color-border)) 88%,
+      transparent
+    );
+  }
+
+  [data-mosaic-theme="dark"] .mosaic-card {
+    background: color-mix(
+      in srgb,
+      var(--mosaic-card-bg, var(--mosaic-color-surface)) 88%,
+      rgba(8, 10, 20, 0.6)
+    );
+    border-color: color-mix(
+      in srgb,
+      var(--mosaic-card-border, var(--mosaic-color-border)) 60%,
+      rgba(8, 10, 20, 0.8)
+    );
+    --mosaic-card-bg-hover: color-mix(
+      in srgb,
+      var(--mosaic-card-bg, var(--mosaic-color-surface)) 92%,
+      rgba(8, 10, 20, 0.55)
+    );
+    --mosaic-card-border-hover: color-mix(
+      in srgb,
+      var(--mosaic-card-border, var(--mosaic-color-border)) 74%,
+      rgba(8, 10, 20, 0.75)
+    );
+  }
 }
 
 .mosaic-card[data-hoverable="true"]:hover {
   box-shadow: var(--mosaic-card-shadow-hover, var(--mosaic-shadow-md));
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  background-color: var(--mosaic-card-bg-hover, var(--mosaic-card-bg, var(--mosaic-color-surface-hover)));
+  border-color: var(--mosaic-card-border-hover, var(--mosaic-card-border, var(--mosaic-color-border)));
 }
 
 .mosaic-card[data-elevated="true"] {
-  box-shadow: var(--mosaic-shadow-md);
+  box-shadow: var(--mosaic-shadow-lg);
 }
 
 .mosaic-card[data-tone="primary"] {
@@ -170,6 +237,7 @@ export const baseStyles = `
   border: var(--mosaic-border-width) solid var(--mosaic-alert-border, var(--mosaic-color-border));
   border-radius: var(--mosaic-radius-lg);
   color: var(--mosaic-alert-fg, var(--mosaic-color-text));
+  box-shadow: var(--mosaic-alert-shadow, var(--mosaic-shadow-sm));
 }
 
 .mosaic-alert::before {
@@ -272,12 +340,14 @@ export const baseStyles = `
   font-size: var(--mosaic-text-size-2xl);
   font-weight: 700;
   line-height: var(--mosaic-line-height-tight);
+  letter-spacing: -0.03em;
 }
 
 .mosaic-text[data-variant="title"] {
   font-size: var(--mosaic-text-size-xl);
   font-weight: 600;
   line-height: var(--mosaic-line-height-tight);
+  letter-spacing: -0.015em;
 }
 
 .mosaic-text[data-variant="label"] {
@@ -323,21 +393,29 @@ export const baseStyles = `
   transition: border-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+  box-shadow: inset 0 1px 0 rgba(15, 23, 42, 0.05);
 }
 
 .mosaic-input::placeholder {
   color: var(--mosaic-color-text-muted);
 }
 
+.mosaic-input:hover:not(:disabled):not(:focus-visible) {
+  background-color: var(--mosaic-color-surface-hover);
+  border-color: var(--mosaic-color-neutral-border);
+}
+
 .mosaic-input:focus-visible {
   outline: none;
   border-color: var(--mosaic-color-ring);
-  box-shadow: var(--mosaic-focus-ring);
+  background-color: var(--mosaic-color-surface);
+  box-shadow: inset 0 1px 0 rgba(15, 23, 42, 0.05), var(--mosaic-focus-ring);
 }
 
 .mosaic-input:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .mosaic-textarea {
@@ -356,21 +434,29 @@ export const baseStyles = `
   transition: border-color var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
+  box-shadow: inset 0 1px 0 rgba(15, 23, 42, 0.05);
 }
 
 .mosaic-textarea::placeholder {
   color: var(--mosaic-color-text-muted);
 }
 
+.mosaic-textarea:hover:not(:disabled):not(:focus-visible) {
+  background-color: var(--mosaic-color-surface-hover);
+  border-color: var(--mosaic-color-neutral-border);
+}
+
 .mosaic-textarea:focus-visible {
   outline: none;
   border-color: var(--mosaic-color-ring);
-  box-shadow: var(--mosaic-focus-ring);
+  background-color: var(--mosaic-color-surface);
+  box-shadow: inset 0 1px 0 rgba(15, 23, 42, 0.05), var(--mosaic-focus-ring);
 }
 
 .mosaic-textarea:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .mosaic-select {
@@ -395,17 +481,25 @@ export const baseStyles = `
     box-shadow var(--mosaic-motion-duration) var(--mosaic-motion-ease),
     background-color var(--mosaic-motion-duration) var(--mosaic-motion-ease);
   cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(15, 23, 42, 0.05);
+}
+
+.mosaic-select:hover:not(:disabled):not(:focus-visible) {
+  background-color: var(--mosaic-color-surface-hover);
+  border-color: var(--mosaic-color-neutral-border);
 }
 
 .mosaic-select:focus-visible {
   outline: none;
   border-color: var(--mosaic-color-ring);
-  box-shadow: var(--mosaic-focus-ring);
+  background-color: var(--mosaic-color-surface);
+  box-shadow: inset 0 1px 0 rgba(15, 23, 42, 0.05), var(--mosaic-focus-ring);
 }
 
 .mosaic-select:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .mosaic-field {
