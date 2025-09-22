@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "vite --config vite.config.ts",
     "build": "tsc && bun build ./src/index.ts --outdir dist --target bun --sourcemap --external react --external react-dom --external react/jsx-runtime",
+    "docs:build": "vite build --config vite.config.ts",
     "typecheck": "tsc --noEmit",
     "test": "bun test"
   },
