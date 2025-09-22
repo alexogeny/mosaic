@@ -76,6 +76,9 @@ const toneVars = (tone: ButtonTone, variant: ButtonVariant): Record<string, stri
         "--mosaic-button-bg-hover": palette.border,
         "--mosaic-button-bg-active": palette.color,
         "--mosaic-button-border-hover": "transparent",
+        "--mosaic-button-shadow": getCssVar("shadow-sm"),
+        "--mosaic-button-shadow-hover": getCssVar("shadow-md"),
+        "--mosaic-button-shadow-active": getCssVar("shadow-sm"),
       };
     case "soft":
       return {
@@ -85,6 +88,8 @@ const toneVars = (tone: ButtonTone, variant: ButtonVariant): Record<string, stri
         "--mosaic-button-bg-hover": palette.border,
         "--mosaic-button-bg-active": palette.color,
         "--mosaic-button-border-hover": palette.color,
+        "--mosaic-button-shadow-hover": getCssVar("shadow-sm"),
+        "--mosaic-button-shadow-active": getCssVar("shadow-sm"),
       };
     case "outline":
       return {
@@ -94,6 +99,8 @@ const toneVars = (tone: ButtonTone, variant: ButtonVariant): Record<string, stri
         "--mosaic-button-bg-hover": palette.soft,
         "--mosaic-button-bg-active": palette.border,
         "--mosaic-button-border-hover": palette.border,
+        "--mosaic-button-shadow-hover": getCssVar("shadow-sm"),
+        "--mosaic-button-shadow-active": getCssVar("shadow-sm"),
       };
     case "ghost":
     default:
@@ -104,6 +111,8 @@ const toneVars = (tone: ButtonTone, variant: ButtonVariant): Record<string, stri
         "--mosaic-button-bg-hover": palette.soft,
         "--mosaic-button-bg-active": palette.border,
         "--mosaic-button-border-hover": palette.border,
+        "--mosaic-button-shadow-hover": getCssVar("shadow-sm"),
+        "--mosaic-button-shadow-active": getCssVar("shadow-sm"),
       };
   }
 };

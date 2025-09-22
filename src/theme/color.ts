@@ -121,26 +121,26 @@ const colorVisionSemantics: Record<ColorVisionMode, Partial<typeof semanticDefau
 };
 
 const baseLight = {
-  background: "#ffffff",
-  surface: "#f8fafc",
-  surfaceHover: "#f1f5f9",
-  surfaceActive: "#e2e8f0",
-  border: "#cbd5e1"
+  background: "#f5f6f8",
+  surface: "#ffffff",
+  surfaceHover: "#f2f3f6",
+  surfaceActive: "#e6e9ef",
+  border: "#d8dee6",
 };
 
 const baseDark = {
-  background: "#0b1120",
-  surface: "#111827",
-  surfaceHover: "#1e293b",
-  surfaceActive: "#334155",
-  border: "#1f2937",
+  background: "#050509",
+  surface: "#0f1119",
+  surfaceHover: "#181b26",
+  surfaceActive: "#1f2431",
+  border: "#2b3142",
 };
 
 const lighten = (color: string, amount: number) => mix(color, "#ffffff", amount);
 const darken = (color: string, amount: number) => mix(color, "#000000", amount);
 
 const neutralFromAppearance = (appearance: Appearance) =>
-  appearance === "light" ? "#64748b" : "#94a3b8";
+  appearance === "light" ? "#4b5563" : "#a1a1aa";
 
 const highContrastBackground = (appearance: Appearance) =>
   appearance === "light" ? "#ffffff" : "#000000";
@@ -204,19 +204,19 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
     highContrast ? 6 : 4.5,
   );
 
-  const textBase = highContrast ? highContrastText(appearance) : appearance === "light" ? "#111827" : "#e2e8f0";
-  const textMuted = appearance === "light" ? "#475569" : "#cbd5f5";
-  const textSubtle = appearance === "light" ? "#64748b" : "#94a3b8";
-  const inverted = appearance === "light" ? "#f8fafc" : "#0f172a";
+  const textBase = highContrast ? highContrastText(appearance) : appearance === "light" ? "#111322" : "#f4f4f5";
+  const textMuted = appearance === "light" ? "#4b5563" : "#c7cad9";
+  const textSubtle = appearance === "light" ? "#6b7280" : "#a1a5b5";
+  const inverted = appearance === "light" ? "#0f1119" : "#f5f6f8";
 
-  const neutralSoftBase = appearance === "light" ? lighten(neutral, 0.48) : darken(neutral, 0.4);
+  const neutralSoftBase = appearance === "light" ? lighten(neutral, 0.6) : darken(neutral, 0.45);
 
-  const successSoft = appearance === "light" ? lighten(success, 0.75) : darken(success, 0.55);
-  const successBorder = appearance === "light" ? lighten(success, 0.4) : darken(success, 0.3);
-  const warningSoft = appearance === "light" ? lighten(warning, 0.75) : darken(warning, 0.55);
-  const warningBorder = appearance === "light" ? lighten(warning, 0.4) : darken(warning, 0.3);
-  const dangerSoft = appearance === "light" ? lighten(danger, 0.75) : darken(danger, 0.55);
-  const dangerBorder = appearance === "light" ? lighten(danger, 0.4) : darken(danger, 0.3);
+  const successSoft = appearance === "light" ? lighten(success, 0.82) : darken(success, 0.6);
+  const successBorder = appearance === "light" ? lighten(success, 0.46) : darken(success, 0.32);
+  const warningSoft = appearance === "light" ? lighten(warning, 0.82) : darken(warning, 0.6);
+  const warningBorder = appearance === "light" ? lighten(warning, 0.46) : darken(warning, 0.32);
+  const dangerSoft = appearance === "light" ? lighten(danger, 0.82) : darken(danger, 0.6);
+  const dangerBorder = appearance === "light" ? lighten(danger, 0.46) : darken(danger, 0.32);
 
   const tokens: ThemeTokens = {
     "color-background": surface.background,
@@ -235,8 +235,8 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
       primary,
       highContrast ? 7 : 4.5,
     ),
-    "color-primary-soft": appearance === "light" ? lighten(primary, 0.72) : darken(primary, 0.6),
-    "color-primary-border": appearance === "light" ? lighten(primary, 0.4) : darken(primary, 0.3),
+    "color-primary-soft": appearance === "light" ? lighten(primary, 0.78) : darken(primary, 0.62),
+    "color-primary-border": appearance === "light" ? lighten(primary, 0.45) : darken(primary, 0.35),
     "color-success": success,
     "color-success-contrast": ensureContrast(appearance === "light" ? "#f8fafc" : "#0f172a", success, highContrast ? 6.5 : 4.5),
     "color-success-soft": successSoft,
@@ -264,25 +264,25 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
     "line-height-tight": "1.2",
     "line-height-normal": "1.5",
     "line-height-relaxed": "1.7",
-    "radius-sm": "0.5rem",
-    "radius-md": "0.75rem",
-    "radius-lg": "1.25rem",
+    "radius-sm": "0.75rem",
+    "radius-md": "1rem",
+    "radius-lg": "1.5rem",
     "shadow-sm": appearance === "light"
-      ? "0 8px 20px -14px rgba(15, 23, 42, 0.24)"
-      : "0 8px 18px -12px rgba(2, 6, 23, 0.6)",
+      ? "0 12px 32px -24px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(15, 23, 42, 0.04)"
+      : "0 14px 34px -22px rgba(2, 6, 23, 0.7), 0 0 0 1px rgba(148, 163, 184, 0.08)",
     "shadow-md": appearance === "light"
-      ? "0 18px 40px -24px rgba(15, 23, 42, 0.28)"
-      : "0 24px 54px -28px rgba(2, 6, 23, 0.7)",
+      ? "0 32px 74px -46px rgba(15, 23, 42, 0.26), 0 20px 46px -38px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.06)"
+      : "0 36px 82px -44px rgba(2, 6, 23, 0.82), 0 20px 52px -36px rgba(15, 23, 42, 0.6), 0 0 0 1px rgba(148, 163, 184, 0.12)",
     "shadow-lg": appearance === "light"
-      ? "0 36px 80px -42px rgba(15, 23, 42, 0.36)"
-      : "0 42px 96px -48px rgba(2, 6, 23, 0.78)",
+      ? "0 48px 120px -64px rgba(15, 23, 42, 0.28), 0 28px 90px -60px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(15, 23, 42, 0.08)"
+      : "0 52px 120px -62px rgba(2, 6, 23, 0.88), 0 26px 90px -56px rgba(15, 23, 42, 0.64), 0 0 0 1px rgba(148, 163, 184, 0.16)",
     "border-width": highContrast ? "2px" : "1px",
-    "motion-duration": reducedMotion ? "0ms" : "150ms",
+    "motion-duration": reducedMotion ? "0ms" : "180ms",
     "motion-ease": reducedMotion ? "linear" : "cubic-bezier(0.16, 1, 0.3, 1)",
-    "spacing-xs": "0.25rem",
-    "spacing-sm": "0.5rem",
-    "spacing-md": "0.75rem",
-    "spacing-lg": "1.25rem",
+    "spacing-xs": "0.3rem",
+    "spacing-sm": "0.65rem",
+    "spacing-md": "1rem",
+    "spacing-lg": "1.5rem",
   };
 
   if (colorVision === "achromatopsia") {
@@ -293,9 +293,9 @@ const buildTokens = (options: ThemeOptions): ThemeTokens => {
   }
 
   if (highContrast) {
-    tokens["shadow-sm"] = "none";
-    tokens["shadow-md"] = "none";
-    tokens["shadow-lg"] = "none";
+    tokens["shadow-sm"] = "0 0 0 0 transparent";
+    tokens["shadow-md"] = "0 0 0 0 transparent";
+    tokens["shadow-lg"] = "0 0 0 0 transparent";
   }
 
   return tokens;
