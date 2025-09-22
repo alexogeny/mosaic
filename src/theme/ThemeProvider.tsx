@@ -28,7 +28,7 @@ import { baseStyles } from "./baseStyles";
 
 const defaultOptions: ThemeOptions = {
   appearance: "light",
-  accent: "indigo",
+  accent: "neutral",
   colorVision: "normal",
   highContrast: false,
   reducedMotion: false,
